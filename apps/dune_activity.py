@@ -29,7 +29,7 @@ class DuneActivity(hass.Hass):
 
         try:
             if self.args['host'] is not None:
-                self.HOST = self.args['host']
+                self.host = self.args['host']
         except KeyError:
             self.error('Wrong arguments! You must supply a valid DuneHD media player hostname or IP address.')
             return
@@ -42,7 +42,7 @@ class DuneActivity(hass.Hass):
     def update_activity(self, kwargs):
         request = None
         try:
-            request = get(self.URL_FORMAT.format(self.HOST), timeout = 0.1)
+            request = get(self.URL_FORMAT.format(self.host), timeout = 0.1)
         except:
             pass
         if not request:

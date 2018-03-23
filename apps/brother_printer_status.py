@@ -36,7 +36,7 @@ class BrotherPrinterStatus(hass.Hass):
 
         try:
             if self.args['host'] is not None:
-                self.HOST = self.args['host']
+                self.host = self.args['host']
         except KeyError:
             self.error('Wrong arguments! You must supply a valid printer hostname or IP address.')
             return
@@ -52,7 +52,7 @@ class BrotherPrinterStatus(hass.Hass):
         self.run_every(self.update_printer_info_page, datetime.now(), info_interval)
 
     def update_printer_status_page(self, kwargs):
-        self.download_page('http://{}{}'.format(self.HOST, self.STATUS_URL))
+        self.download_page('http://{}{}'.format(self.host, self.STATUS_URL))
         if self.page is not None:
             soup = BeautifulSoup(self.page.text, 'html.parser')
             tag = soup.find_all('dd')[0]
@@ -65,7 +65,7 @@ class BrotherPrinterStatus(hass.Hass):
             self.update_sensor('sensor.printer_toner', toner, attributes)
 
     def update_printer_info_page(self, kwargs):
-        self.download_page('http://{}{}'.format(self.HOST, self.INFO_URL))
+        self.download_page('http://{}{}'.format(self.host, self.INFO_URL))
         if self.page is not None:
             soup = BeautifulSoup(self.page.text, 'html.parser')
             tag = soup.find_all('dd')[4]
@@ -87,5 +87,5 @@ class BrotherPrinterStatus(hass.Hass):
         try:
             self.page = get(url, timeout = 2)
         except:
-            self.error('Host {} unreachable!'.format(self.HOST))
+            self.error('Host {} unreachable!'.format(self.host))
             return

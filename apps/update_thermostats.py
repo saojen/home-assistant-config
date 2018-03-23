@@ -2,16 +2,16 @@
 Update Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature from sensor.
 Arguments:
  - rooms           - list of rooms (required)
- - thermostat			   - thermostat entity_id (required)
- - sensor				      - temperature sensors entity_id (required)
- - heat_state			   - name of heating state, default 'heat' (optional)
- - idle_state			   - name of idle state, default 'idle' (optional)
- - idle_heat_temp		- temperature value between 'idle' and 'heat' states, default 8 (optional)
- - wait_for_zwave		- defines whether the script has to wait for the initialization of the Z-wave component,
+ - thermostat      - thermostat entity_id (required)
+ - sensor          - temperature sensors entity_id (required)
+ - heat_state      - name of heating state, default 'heat' (optional)
+ - idle_state      - name of idle state, default 'idle' (optional)
+ - idle_heat_temp  - temperature value between 'idle' and 'heat' states, default 8 (optional)
+ - wait_for_zwave  - defines whether the script has to wait for the initialization of the Z-wave component,
                      default True (optional)
                      With wait_for_zwave = True script waits for zwave.network_ready event to start. You have
                      to restart Home Assistant to generate this event.
-                          
+
 Configuration example:
 
 update_thermostats:
@@ -76,19 +76,22 @@ class UpdateThermostats(hass.Hass):
         if self.zwave_ready_handle is not None:
             self.cancel_listen_event(self.zwave_ready_handle)
         self.log('Checking thermostats and sensors...')
-        for room in self.args['rooms']:
-            thermostat = self.args['rooms'][room]['thermostat']
-            sensor = self.args['rooms'][room]['sensor']
-            if self.entity_exists(thermostat) == False or self.entity_exists(sensor) == False: 
-                self.error('Wrong arguments! At least one of the entities does not exist.')
-                return
-            self.listen_state(self.thermostat_state_changed, thermostat, attribute = 'current_temperature', \
-                              new = None)
-            self.listen_state(self.sensor_state_changed, sensor)
-            if self.get_state(thermostat, attribute="current_temperature") == None:
-                self.thermostat_state_changed(thermostat, attribute = "current_temperature", old = None, \
-                                              new = None, kwargs = None)
-        self.log('Ready for action...')
+        try:
+            for room in self.args['rooms']:
+                thermostat = self.args['rooms'][room]['thermostat']
+                sensor = self.args['rooms'][room]['sensor']
+                if self.entity_exists(thermostat) == False or self.entity_exists(sensor) == False:
+                    self.error('Wrong arguments! At least one of the entities does not exist.')
+                    return
+                    self.listen_state(self.thermostat_state_changed, thermostat, \
+                                      attribute = 'current_temperature', new = None)
+                    self.listen_state(self.sensor_state_changed, sensor)
+                if self.get_state(thermostat, attribute="current_temperature") == None:
+                    self.thermostat_state_changed(thermostat, attribute = "current_temperature", old = None, \
+                                                  new = None, kwargs = None)
+            self.log('Ready for action...')
+        except KeyError:
+            self.error('Wrong arguments! You must supply a valid sensors and thermostats entities for each room.')
 
     def thermostat_state_changed(self, entity, attribute, old, new, kwargs):
         for room in self.args['rooms']:
