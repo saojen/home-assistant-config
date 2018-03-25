@@ -439,13 +439,16 @@
     conditions:
       - condition: template
         value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_end.state }}'
-      - condition: time
-        weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      # - condition: time
+      #   weekday:
+      #     - mon
+      #     - tue
+      #     - wed
+      #     - thu
+      #     - fri
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
@@ -467,13 +470,16 @@
     conditions:
       - condition: template
         value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_start.state }}'
-      - condition: time
-        weekday:
-          - sun
-          - mon
-          - tue
-          - wed
-          - thu
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      # - condition: time
+      #   weekday:
+      #     - sun
+      #     - mon
+      #     - tue
+      #     - wed
+      #     - thu
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
@@ -495,10 +501,13 @@
     conditions:
       - condition: template
         value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_end_weekend.state }}'
-      - condition: time
-        weekday:
-          - sat
-          - sun
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'off'
+      # - condition: time
+      #   weekday:
+      #     - sat
+      #     - sun
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
@@ -520,10 +529,13 @@
     conditions:
       - condition: template
         value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_start_weekend.state }}'
-      - condition: time
-        weekday:
-          - fri
-          - sat
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'off'
+      # - condition: time
+      #   weekday:
+      #     - fri
+      #     - sat
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
