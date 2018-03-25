@@ -1,3 +1,6 @@
+- platform: workday
+  country: PL
+
 - platform: template
   sensors:
     gaming:

@@ -7,10 +7,8 @@ Arguments:
  - heat_state      - name of heating state, default 'heat' (optional)
  - idle_state      - name of idle state, default 'idle' (optional)
  - idle_heat_temp  - temperature value between 'idle' and 'heat' states, default 8 (optional)
- - wait_for_zwave  - defines whether the script has to wait for the initialization of the Z-wave component,
-                     default True (optional)
-                     With wait_for_zwave = True script waits for zwave.network_ready event to start. You have
-                     to restart Home Assistant to generate this event.
+ - wait_for_zwave  - defines whether the script has to wait for the initialization of the Z-wave component
+                     after Home Assistant restart, default True (optional)
 
 Configuration example:
 
@@ -35,12 +33,13 @@ update_thermostats:
 """
 
 import appdaemon.plugins.hass.hassapi as hass
+import json
 
 class UpdateThermostats(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.2'
+        __version__ = '0.2.1'
 
         self.zwave_ready_handle = None
 
@@ -60,13 +59,12 @@ class UpdateThermostats(hass.Hass):
             self.idle_heat_temp = int(self.args['idle_heat_temp'])
         else:
             self.idle_heat_temp = 8
+        self.log_level = 'DEBUG'
         if 'debug' in self.args:
             if self.args['debug']:
                 self.log_level = 'INFO'
-        else:
-            self.log_level = 'DEBUG'
 
-        if wait_for_zwave:
+        if wait_for_zwave and not self.zwave_entities_ready():
             self.log('Waiting for zwave.network_ready event...')
             self.zwave_ready_handle = self.listen_event(self.start_listen_states, 'zwave.network_ready')
         else:
@@ -80,12 +78,12 @@ class UpdateThermostats(hass.Hass):
             for room in self.args['rooms']:
                 thermostat = self.args['rooms'][room]['thermostat']
                 sensor = self.args['rooms'][room]['sensor']
-                if self.entity_exists(thermostat) == False or self.entity_exists(sensor) == False:
+                if not self.entity_exists(thermostat) or not self.entity_exists(sensor):
                     self.error('Wrong arguments! At least one of the entities does not exist.')
                     return
-                    self.listen_state(self.thermostat_state_changed, thermostat, \
-                                      attribute = 'current_temperature', new = None)
-                    self.listen_state(self.sensor_state_changed, sensor)
+                self.listen_state(self.thermostat_state_changed, thermostat, \
+                                  attribute = 'current_temperature', new = None)
+                self.listen_state(self.sensor_state_changed, sensor)
                 if self.get_state(thermostat, attribute="current_temperature") == None:
                     self.thermostat_state_changed(thermostat, attribute = "current_temperature", old = None, \
                                                   new = None, kwargs = None)
@@ -131,3 +129,11 @@ class UpdateThermostats(hass.Hass):
             return self.heat_state
         else:
             return self.idle_state
+
+    def zwave_entities_ready(self):
+        resault = True
+        entities = self.get_state('zwave',)
+        for entity in entities:
+            if not entities[entity]['attributes']['is_ready']:
+                resault = False
+        return resault
