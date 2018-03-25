@@ -363,6 +363,9 @@ switch.light_lamp_salon:
 switch.light_leds_przedpokoj:
   icon: mdi:led-variant-on
   friendly_name: LEDy
+script.sonoffs_upgrade:
+  friendly_name: Aktualizacja Sonoff-ów
+  icon: mdi:download-network
 
 #### ENERGY ####
 sensor.light_leds_salon_energy:

@@ -1,3 +1,26 @@
+- platform: mqtt
+  name: Sonoff Basic 01 Version
+  state_topic: "homeassistant/switch/light-lamp-salon/stat/STATUS2"
+  value_template: "{{ value_json['StatusFWR'].Version }}"
+
+- platform: mqtt
+  name: Sonoff Basic 02 Version
+  state_topic: "homeassistant/switch/light-leds-przedpokoj/stat/STATUS2"
+  value_template: "{{ value_json['StatusFWR'].Version }}"
+
+- platform: rest
+  name: Sonoff Version Current
+  resource: https://api.github.com/repos/arendst/Sonoff-Tasmota/releases/latest
+  value_template: "{{ value_json.tag_name | replace('v', '') }}"
+  username: !secret github_username
+  password: !secret github_token_access
+  authentication: basic
+  scan_interval: 7200
+  headers:
+    Accept: application/vnd.github.v3+json
+    Content-Type: application/json
+    User-Agent: Home Assistant REST sensor
+
 - platform: nut
   name: UPS
   host: !secret ups_host

@@ -35,6 +35,11 @@ exclude:
     - light.bulb_salon_2
     - sensor.ups_status_data
     - sensor.printer_status
+    - sensor.sonoff_tasmota_version_current
+    - binary_sensor.workday_sensor
+    - sensor.sonoff_version_current
+    - sensor.sonoff_basic_01_version
+    - sensor.sonoff_basic_02_version
 include:
   entities:
     - group.family

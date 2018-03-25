@@ -3,14 +3,29 @@ reboot_router:
   sequence:
     service: shell_command.reboot_router
 
+#### SONOFFS ####
+sonoffs_check_version:
+  sequence:
+    service: mqtt.publish
+    data:
+      topic: "homeassistant/switch/sonoffs/cmnd/status"
+      payload: 2
+
+sonoffs_upgrade:
+  sequence:
+    service: mqtt.publish
+    data:
+      topic: "homeassistant/switch/sonoffs/cmnd/upgrade"
+      payload: 1
+
 #### XIAOMI GATEWAY ALARM ####
 xiaomi_alarm:
   sequence:
-    - service: xiaomi.play_ringtone
-      data:
-        ringtone_id: 2
-        gw_mac: !secret xiaomi_gateway_mac
-        ringtone_vol: 10
+    service: xiaomi.play_ringtone
+    data:
+      ringtone_id: 2
+      gw_mac: !secret xiaomi_gateway_mac
+      ringtone_vol: 10
 
 xiaomi_alarm_stop:
   sequence:
@@ -68,13 +83,13 @@ heating_day:
       data_template:
         temperature: '{{ states.input_select.heating_temp_bathroom_day.state }}'
     - service: climate.set_temperature
-      entity_id: 
+      entity_id:
         - climate.thermostat_antresola
         - climate.thermostat_kuchnia
       data_template:
         temperature: '{{ states.input_select.heating_temp_day.state }}'
     - service: climate.set_temperature
-      entity_id: 
+      entity_id:
         - climate.thermostat_antek
         - climate.thermostat_sypialnia
       data_template:
@@ -93,7 +108,7 @@ heating_night:
       data_template:
         temperature: '{{ states.input_select.heating_temp_night.state }}'
     - service: climate.set_temperature
-      entity_id: 
+      entity_id:
         - climate.thermostat_antek
         - climate.thermostat_sypialnia
       data_template:
@@ -114,7 +129,7 @@ heating_night:
 heating_eco_mode:
   sequence:
     - service: climate.set_temperature
-      entity_id: 
+      entity_id:
         - climate.thermostat_antresola
         - climate.thermostat_kuchnia
         - climate.thermostat_antek
@@ -130,7 +145,7 @@ heating_eco_mode:
         title: 'Koniec przewietrzania'
         message: 'Domownicy opóścili mieszkanie. Wyłączono tryb przewietrzania.'
     - service: notify.html5_oneplus
-      data_template: 
+      data_template:
         title: 'Koniec przewietrzania'
         message: 'Domownicy opóścili mieszkanie. Wyłączono tryb przewietrzania.'
       data:
@@ -154,7 +169,7 @@ heating_season_end:
 heating_airing_begin:
   sequence:
     - service: climate.set_temperature
-      entity_id: 
+      entity_id:
         - climate.thermostat_antresola
         - climate.thermostat_kuchnia
         - climate.thermostat_antek

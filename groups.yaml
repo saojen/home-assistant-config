@@ -250,6 +250,7 @@ scripts:
   control: hidden
   entities:
     - script.reboot_router
+    - script.sonoffs_upgrade
     - input_select.log_level
 
 batteries thermostats:

@@ -164,6 +164,30 @@
         tag: 'notification-hass-update'
         url: "https://home-assistant.io/blog/"
 
+# powiadomienie o aktualizacji Sonoffów
+- id: notification_sonoff_update_available
+  alias: 'Notification Sonoff Update Available'
+  trigger:
+    platform: state
+    entity_id: sensor.sonoff_version_current
+  action:
+    - service: script.sonoffs_check_version
+    - condition: or
+      conditions:
+        - condition: template
+          value_template: '{{ states.sensor.sonoff_basic_01_version.state != states.sensor.sonoff_version_current.state }}'
+        - condition: template
+          value_template: '{{ states.sensor.sonoff_basic_02_version.state != states.sensor.sonoff_version_current.state }}'
+    - service: notify.html5_oneplus
+      data_template:
+        title: 'Aktualizacja Sonoff-Tasmota'
+        message: "Dostępna jest aktualizacja do wersji {{ states.sensor.sonoff_version_current.state }} dla Sonoff-Tasmota."
+      data:
+        data:
+          tag: 'notification-sonoff-update'
+          url: "https://github.com/arendst/Sonoff-Tasmota/releases"
+
+
 # powiadomienie jak jest ruch i nikogo w domu
 - id: notification_motion_when_away_mode
   alias: 'Notification Motion When Away Mode'
