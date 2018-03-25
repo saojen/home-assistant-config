@@ -133,7 +133,10 @@ class UpdateThermostats(hass.Hass):
     def zwave_entities_ready(self):
         resault = True
         entities = self.get_state('zwave',)
-        for entity in entities:
-            if not entities[entity]['attributes']['is_ready']:
-                resault = False
+        try:
+            for entity in entities:
+                if not entities[entity]['attributes']['is_ready']:
+                    resault = False
+        except KeyError:
+            resault = False
         return resault
