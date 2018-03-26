@@ -18,9 +18,15 @@ light.bulbs_salon:
 #### UPS ####
 sensor.ups_status:
   icon: mdi:server-security
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: if (state === 'zasilanie bateryjne') return 'red'; else return 'default';
 sensor.ups_battery_charge:
   friendly_name: 'Naładowanie baterii'
   icon: mdi:car-battery
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: if (state < 50) return 'red'; else return 'default';
 sensor.ups_battery_runtime:
   friendly_name: 'Czas do rozładowania'
 sensor.ups_battery_voltage:
