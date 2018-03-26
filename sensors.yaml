@@ -92,6 +92,7 @@
   api_key: !secret darksky_api_key
   update_inverval:
     minutes: 15
+  language: 'pl'
   monitored_conditions:
     - summary
     - icon
@@ -925,51 +926,9 @@
       friendly_name: Warunki pogodowe
       value_template: >-
          {% if states.sensor.dark_sky_summary %}
-            {% if states.sensor.dark_sky_summary.state == 'Overcast' %}
-               pochmurno
-            {% elif states.sensor.dark_sky_summary.state == 'Drizzle' %}
-               mżawka
-            {% elif states.sensor.dark_sky_summary.state == 'Drizzle and Windy' %}
-               mżawka i wietrznie
-            {% elif states.sensor.dark_sky_summary.state == 'Light Snow' %}
-               lekkie opady śniegu
-            {% elif states.sensor.dark_sky_summary.state == 'Light Snow and Breezy' %}
-               wietrznie i lekkie opady śniegu
-            {% elif states.sensor.dark_sky_summary.state == 'Flurries' %}
-               obfity deszcz
-            {% elif states.sensor.dark_sky_summary.state == 'Mostly Cloudy' %}
-               przewaga chmur
-            {% elif states.sensor.dark_sky_summary.state == 'Partly Cloudy' %}
-               częściowe zachmurzenie
-            {% elif states.sensor.dark_sky_summary.state == 'Clear' %}
-               bezchmurnie
-            {% elif (states.sensor.dark_sky_summary.state == 'Breezy and Mostly Cloudy' or states.sensor.dark_sky_summary.state == 'Windy and Mostly Cloudy') %}
-               wietrznie i przewaga chmur
-            {% elif states.sensor.dark_sky_summary.state == 'Drizzle and Breezy' %}
-               wietrznie i mżawka
-            {% elif states.sensor.dark_sky_summary.state == 'Light Rain' %}
-               lekkie opady deszczu
-            {% elif states.sensor.dark_sky_summary.state == 'Light Rain and Breezy' %}
-               wietrznie i lekkie opady deszczu
-            {% elif states.sensor.dark_sky_summary.state == 'Light Rain and Windy' %}
-               wietrznie i lekkie opady deszczu
-            {% elif states.sensor.dark_sky_summary.state == 'Snow' %}
-               opady śniegu
-            {% elif states.sensor.dark_sky_summary.state == 'Rain' %}
-               opady deszczu
-            {% elif states.sensor.dark_sky_summary.state == 'Flurries and Breezy' %}
-               wietrznie i obfity deszcz
-            {% elif states.sensor.dark_sky_summary.state == 'Breezy and Partly Cloudy' %}
-               wietrznie i częściowe zachmurzenie
-            {% elif (states.sensor.dark_sky_summary.state == 'Breezy and Overcast' or states.sensor.dark_sky_summary.state == 'Windy and Overcast') %}
-               wietrznie i pochmurno
-            {% elif states.sensor.dark_sky_summary.state == 'Breezy' %}
-               wietrznie
-            {% else %}
-               {{ states.sensor.dark_sky_summary.state }}
-            {% endif %}
+            {{ states.sensor.dark_sky_summary.state | lower }}
          {% else %}
-            {{ states.sensor.dark_sky_summary_custom.state }}
+            {{ states.sensor.dark_sky_summary.state }}
          {% endif %}
 
       icon_template: >-

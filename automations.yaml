@@ -466,13 +466,6 @@
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'on'
-      # - condition: time
-      #   weekday:
-      #     - mon
-      #     - tue
-      #     - wed
-      #     - thu
-      #     - fri
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
@@ -497,13 +490,6 @@
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'on'
-      # - condition: time
-      #   weekday:
-      #     - sun
-      #     - mon
-      #     - tue
-      #     - wed
-      #     - thu
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
@@ -528,10 +514,6 @@
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'off'
-      # - condition: time
-      #   weekday:
-      #     - sat
-      #     - sun
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
@@ -556,10 +538,6 @@
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'off'
-      # - condition: time
-      #   weekday:
-      #     - fri
-      #     - sat
       - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
