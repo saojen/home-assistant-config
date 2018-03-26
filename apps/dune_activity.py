@@ -23,20 +23,24 @@ class DuneActivity(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.1'
+        __version__ = '0.1.1'
 
         self.URL_FORMAT = 'http://{}/cgi-bin/do'
 
         try:
-            if self.args['host'] is not None:
+            if self.args['host']:
                 self.host = self.args['host']
         except KeyError:
             self.error('Wrong arguments! You must supply a valid DuneHD media player hostname or IP address.')
             return
-        if 'interval' in self.args:
-            interval = int(self.args['interval'])
-        else:
-            interval = 60
+        try:
+            if 'interval' in self.args:
+                interval = int(self.args['interval'])
+            else:
+                interval = 60
+        except ValueError:
+            self.error('Wrong arguments! Argument interval has to be an integer.')
+            return
         self.run_every(self.update_activity, datetime.now(), interval)
 
     def update_activity(self, kwargs):

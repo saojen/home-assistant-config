@@ -39,7 +39,7 @@ class UpdateThermostats(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.2.1'
+        __version__ = '0.2.2'
 
         self.zwave_ready_handle = None
 
@@ -55,10 +55,14 @@ class UpdateThermostats(hass.Hass):
             self.idle_state = self.args['idle_state']
         else:
             self.idle_state = 'idle'
-        if 'idle_heat_temp' in self.args:
-            self.idle_heat_temp = int(self.args['idle_heat_temp'])
-        else:
-            self.idle_heat_temp = 8
+        try:
+            if 'idle_heat_temp' in self.args:
+                self.idle_heat_temp = int(self.args['idle_heat_temp'])
+            else:
+                self.idle_heat_temp = 8
+        except ValueError:
+            self.error('Wrong arguments! Argument idle_heat_temp has to be an integer.')
+            return
         self.log_level = 'DEBUG'
         if 'debug' in self.args:
             if self.args['debug']:
@@ -99,9 +103,9 @@ class UpdateThermostats(hass.Hass):
         sensor_temp = self.get_state(sensor_id)
         target_temp = self.get_state(entity, attribute = "temperature")
 
-        if sensor_temp is not None and sensor_temp != 'Unknown':
-            if new == None or float(new) != float(sensor_temp):
-                self.update_thermostat(entity, target_temp, sensor_temp)
+        if sensor_temp and sensor_temp != 'unknown':
+            if not new or (new != 'unknown' and float(new) != float(sensor_temp)):
+               self.update_thermostat(entity, target_temp, sensor_temp)
         else:
             self.log('No temperature data on the sensor {}.'.format(sensor_id))
 
@@ -113,8 +117,8 @@ class UpdateThermostats(hass.Hass):
         current_temp = self.get_state(thermostat_id, attribute = "current_temperature")
         target_temp = self.get_state(thermostat_id, attribute = "temperature")
 
-        if new is not None and new != 'Unknown':
-            if current_temp == None or float(current_temp) != float(new):
+        if new and new != 'unknown':
+            if not current_temp or (current_temp != 'unknown' and float(current_temp) != float(new)):
                 self.update_thermostat(thermostat_id, target_temp, new)
         else:
             self.log('No temperature data on the sensor {}.'.format(entity))

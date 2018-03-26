@@ -1,6 +1,6 @@
 """
 Update Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature from external sensor.
-Version 0.2
+Version 0.2.1
 Arguments:
  - thermostat			- thermostat entity_id (required)
  - sensor				- sensor entity_id (required)
@@ -25,9 +25,9 @@ heat_state = data.get('heat_state', 'heat')
 idle_state = data.get('idle_state', 'idle')
 idle_heat_temp = data.get('idle_heat_temp', 8)
 
-if thermostat_id is not None and sensor_id is not None:
+if thermostat_id and sensor_id:
     temp = hass.states.get(sensor_id).state
-    if temp is not None and temp is not 'unknown':
+    if temp and temp != 'unknown':
         thermostat = hass.states.get(thermostat_id)
         attributes = thermostat.attributes.copy()
         attributes['current_temperature'] = temp

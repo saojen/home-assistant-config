@@ -30,46 +30,61 @@ class BrotherPrinterStatus(hass.Hass):
 
         __version__ = '0.1.3'
 
-        self.MAX_IMAGE_HEIGHT = 56
+        self.MAX_IMAGE_HEIGHT = 56  # the maximum value of the pointer height on the printer's webpage
         self.INFO_URL = '/general/information.html'
         self.STATUS_URL = '/general/status.html'
 
         try:
-            if self.args['host'] is not None:
+            if self.args['host']:
                 self.host = self.args['host']
         except KeyError:
             self.error('Wrong arguments! You must supply a valid printer hostname or IP address.')
             return
-        if 'status_interval' in self.args:
-            status_interval = int(self.args['status_interval'])
-        else:
-            status_interval = 10
-        if 'info_interval' in self.args:
-            info_interval = int(self.args['info_interval'])
-        else:
-            info_interval = 300
+        try:
+            if 'status_interval' in self.args:
+                status_interval = int(self.args['status_interval'])
+            else:
+                status_interval = 10
+        except ValueError:
+            self.error('Wrong arguments! Argument status_interval has to be an integer.')
+            return
+        try:
+            if 'info_interval' in self.args:
+                info_interval = int(self.args['info_interval'])
+            else:
+                info_interval = 300
+        except ValueError:
+            self.error('Wrong arguments! Argument info_interval has to be an integer.')
+            return
+
         self.run_every(self.update_printer_status_page, datetime.now(), status_interval)
         self.run_every(self.update_printer_info_page, datetime.now(), info_interval)
 
     def update_printer_status_page(self, kwargs):
         self.download_page('http://{}{}'.format(self.host, self.STATUS_URL))
-        if self.page is not None:
+        if self.page:
             soup = BeautifulSoup(self.page.text, 'html.parser')
             tag = soup.find_all('dd')[0]
             status = tag.string.lower()
             attributes = {"friendly_name": "Status drukarki", "icon": "mdi:printer"}
             self.update_sensor('sensor.printer_status', status, attributes)
             tag = soup.select('img.tonerremain')
-            toner = round(int(tag[0]['height']) / self.MAX_IMAGE_HEIGHT * 100)
+            try:
+                toner = round(int(tag[0]['height']) / self.MAX_IMAGE_HEIGHT * 100)
+            except IndexError:
+                return
             attributes = {"friendly_name": "Pozostały toner", "icon": "mdi:flask-outline", "unit_of_measurement": "%", "custom_ui_state_card": "state-card-custom-ui", "templates": {"theme": "if (state < 10) return \'red\'; else return \'default\';"}}
             self.update_sensor('sensor.printer_toner', toner, attributes)
 
     def update_printer_info_page(self, kwargs):
         self.download_page('http://{}{}'.format(self.host, self.INFO_URL))
-        if self.page is not None:
+        if self.page:
             soup = BeautifulSoup(self.page.text, 'html.parser')
             tag = soup.find_all('dd')[4]
-            printed_pages = int(tag.string)
+            try:
+                printed_pages = int(tag.string)
+            except TypeError:
+                return
             attributes = {"friendly_name": "Wydrukowano", "icon": "mdi:file-document", "unit_of_measurement": "str"}
             self.update_sensor('sensor.printer_printed_pages', printed_pages, attributes)
             tag = soup.find_all('dd')[8]
