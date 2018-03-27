@@ -164,6 +164,36 @@
             unknown
          {% endif %}
 
+    printer_counter_custom:
+      friendly_name: 'Wydrukowano'
+      unit_of_measurement: 'str'
+      value_template: >-
+         {% if states.sensor.printer_counter %}
+            {{ states.sensor.printer_counter.state }}
+         {% else %}
+           {{ states.sensor.printer_counter_custom.state }}
+         {% endif %}
+
+    printer_drum_usage_custom:
+      friendly_name: 'Zużycie bębna'
+      unit_of_measurement: '%'
+      value_template: >-
+         {% if states.sensor.printer_drum_usage %}
+            {{ states.sensor.printer_drum_usage.state }}
+         {% else %}
+            {{ states.sensor.printer_drum_usage_custom.state }}
+         {% endif %}
+
+    printer_toner_custom:
+      friendly_name: 'Pozostały toner'
+      unit_of_measurement: '%'
+      value_template: >-
+         {% if states.sensor.printer_toner %}
+            {{ states.sensor.printer_toner.state }}
+         {% else %}
+            {{ states.sensor.printer_toner_custom.state }}
+         {% endif %}
+
     temperature_kuchnia:
       friendly_name: Temperatura
       unit_of_measurement: '°C'

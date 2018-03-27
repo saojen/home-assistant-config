@@ -2,8 +2,8 @@
 Adds four sensors to HA with data from brother network printer WWW interface. Tested only with Brother HL-L2340DW.
 Arguments:
  - host					- hostname or IP address of the printer (required)
- - status_interval		- interval scanning for status page, default 5 sec. [status and toner sensors] (optional)
- - info_interval		- interval scanning for information page, default 300 sec. [printed pages and drum usage sensors] (optional)
+ - status_interval		- interval scanning for status page, default 10 sec. [status and remain toner sensors] (optional)
+ - info_interval		- interval scanning for information page, default 300 sec. [printer counter and drum usage sensors] (optional)
 
 Required install
  - BeautifulSoup [pip3 install beautifulsoup4]
@@ -28,9 +28,9 @@ class BrotherPrinterStatus(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.1.3'
+        __version__ = '0.1.4'
 
-        self.MAX_IMAGE_HEIGHT = 56  # the maximum value of the pointer height on the printer's webpage
+        self.MAX_IMAGE_HEIGHT = 56  # the maximum value of the height of the black image on the printer's webpage
         self.INFO_URL = '/general/information.html'
         self.STATUS_URL = '/general/status.html'
 
@@ -66,14 +66,14 @@ class BrotherPrinterStatus(hass.Hass):
             soup = BeautifulSoup(self.page.text, 'html.parser')
             tag = soup.find_all('dd')[0]
             status = tag.string.lower()
-            attributes = {"friendly_name": "Status drukarki", "icon": "mdi:printer"}
+            attributes = {"friendly_name": "Printer status", "icon": "mdi:printer"}
             self.update_sensor('sensor.printer_status', status, attributes)
             tag = soup.select('img.tonerremain')
             try:
                 toner = round(int(tag[0]['height']) / self.MAX_IMAGE_HEIGHT * 100)
             except IndexError:
                 return
-            attributes = {"friendly_name": "Pozostały toner", "icon": "mdi:flask-outline", "unit_of_measurement": "%", "custom_ui_state_card": "state-card-custom-ui", "templates": {"theme": "if (state < 10) return \'red\'; else return \'default\';"}}
+            attributes = {"friendly_name": "Remaining toner", "icon": "mdi:flask-outline", "unit_of_measurement": "%"}
             self.update_sensor('sensor.printer_toner', toner, attributes)
 
     def update_printer_info_page(self, kwargs):
@@ -82,14 +82,14 @@ class BrotherPrinterStatus(hass.Hass):
             soup = BeautifulSoup(self.page.text, 'html.parser')
             tag = soup.find_all('dd')[4]
             try:
-                printed_pages = int(tag.string)
+                printer_counter = int(tag.string)
             except TypeError:
                 return
-            attributes = {"friendly_name": "Wydrukowano", "icon": "mdi:file-document", "unit_of_measurement": "str"}
-            self.update_sensor('sensor.printer_printed_pages', printed_pages, attributes)
+            attributes = {"friendly_name": "Printer counter", "icon": "mdi:file-document", "unit_of_measurement": "p"}
+            self.update_sensor('sensor.printer_counter', printer_counter, attributes)
             tag = soup.find_all('dd')[8]
             drum_usage = 100 - int(tag.string[1:-5])
-            attributes = {"friendly_name": "Zużycie bębna", "icon": "mdi:chart-donut", "unit_of_measurement": "%", "custom_ui_state_card": "state-card-custom-ui", "templates": {"theme": "if (state > 90) return \'red\'; else return \'default\';"}}
+            attributes = {"friendly_name": "Drum usage", "icon": "mdi:chart-donut", "unit_of_measurement": "%"}
             self.update_sensor('sensor.printer_drum_usage', drum_usage, attributes)
     def update_sensor(self, entity, state, attributes):
         try:
@@ -102,5 +102,5 @@ class BrotherPrinterStatus(hass.Hass):
         try:
             self.page = get(url, timeout = 2)
         except:
-            self.error('Host {} unreachable!'.format(self.host))
+            self.error('Host {} unreachable or respond too slow!'.format(self.host))
             return

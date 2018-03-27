@@ -323,9 +323,9 @@ printer:
   name: Drukarka
   entities:
     - sensor.printer_status_custom
-    - sensor.printer_printed_pages
-    - sensor.printer_drum_usage
-    - sensor.printer_toner
+    - sensor.printer_counter_custom
+    - sensor.printer_drum_usage_custom
+    - sensor.printer_toner_custom
 
 salon:
   name: Salon

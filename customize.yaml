@@ -361,6 +361,18 @@ binary_sensor.window_kuchnia:
 #### PRINTER ####
 sensor.printer_status_custom:
   icon: mdi:printer
+sensor.printer_counter_custom:
+  icon: mdi:file-document
+sensor.printer_drum_usage_custom:
+  icon: mdi:chart-donut
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: if (state > 90) return 'red'; else return 'default';
+sensor.printer_toner_custom:
+  icon: mdi:flask-outline
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    theme: if (state < 10) return 'red'; else return 'default';
 
 #### SONOFF ####
 switch.light_lamp_salon:

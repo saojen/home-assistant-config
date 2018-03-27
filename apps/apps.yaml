@@ -11,9 +11,9 @@ brother_printer_status:
   status_interval: 6
   info_interval: 120
 
-# update_thermostats:
-#   module: update_thermostats
-#   class: UpdateThermostats
+# heating_thermostats_update:
+#   module: heating_thermostats_update
+#   class: HeatingThermostatsUpdate
 #   heat_state: 'auto'
 #   rooms:
 #     kuchnia:

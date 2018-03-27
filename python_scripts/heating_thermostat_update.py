@@ -1,6 +1,6 @@
 """
 Update Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature from external sensor.
-Version 0.2.1
+Version 0.2.2
 Arguments:
  - thermostat			- thermostat entity_id (required)
  - sensor				- sensor entity_id (required)
@@ -10,7 +10,7 @@ Arguments:
 
 Configuration example:
 
-service: python_script.update_thermostat
+service: python_script.heating_thermostat_update
 data:
   thermostat: climate.thermostat_kitchen
   sensor: sensor.temperature_kitchen

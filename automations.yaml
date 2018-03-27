@@ -945,7 +945,7 @@
          false
       {% endif %}
   action:
-    service: python_script.update_thermostat
+    service: python_script.heating_thermostat_update
     data_template:
       thermostat: >-
          {% if "thermostat" in trigger.entity_id %}
@@ -968,7 +968,7 @@
     platform: event
     event_type: zwave.network_ready
   action:
-    - service: python_script.update_thermostat
+    - service: python_script.heating_thermostat_update
       data:
         thermostat: climate.thermostat_antek
         sensor: sensor.temperature_antek
