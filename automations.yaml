@@ -973,27 +973,27 @@
         thermostat: climate.thermostat_antek
         sensor: sensor.temperature_antek
         heat_state: 'auto'
-    - service: python_script.update_thermostat
+    - service: python_script.heating_thermostat_update
       data:
         thermostat: climate.thermostat_kuchnia
         sensor: sensor.temperature_kuchnia
         heat_state: 'auto'
-    - service: python_script.update_thermostat
+    - service: python_script.heating_thermostat_update
       data:
         thermostat: climate.thermostat_salon
         sensor: sensor.temperature_salon
         heat_state: 'auto'
-    - service: python_script.update_thermostat
+    - service: python_script.heating_thermostat_update
       data:
         thermostat: climate.thermostat_antresola
         sensor: sensor.temperature_antresola
         heat_state: 'auto'
-    - service: python_script.update_thermostat
+    - service: python_script.heating_thermostat_update
       data:
         thermostat: climate.thermostat_sypialnia
         sensor: sensor.temperature_sypialnia
         heat_state: 'auto'
-    - service: python_script.update_thermostat
+    - service: python_script.heating_thermostat_update
       data:
         thermostat: climate.thermostat_lazienka
         sensor: sensor.temperature_lazienka

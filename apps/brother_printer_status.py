@@ -5,9 +5,6 @@ Arguments:
  - status_interval		- interval scanning for status page, default 10 sec. [status and remain toner sensors] (optional)
  - info_interval		- interval scanning for information page, default 300 sec. [printer counter and drum usage sensors] (optional)
 
-Required install
- - BeautifulSoup [pip3 install beautifulsoup4]
-
 Configuration example:
 
 brother_printer_status:
@@ -20,15 +17,15 @@ brother_printer_status:
 """
 
 import appdaemon.plugins.hass.hassapi as hass
-from bs4 import BeautifulSoup
 from requests import get
 from datetime import datetime
+import re
 
 class BrotherPrinterStatus(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.1.4'
+        __version__ = '0.2'
 
         self.MAX_IMAGE_HEIGHT = 56  # the maximum value of the height of the black image on the printer's webpage
         self.INFO_URL = '/general/information.html'
@@ -63,15 +60,19 @@ class BrotherPrinterStatus(hass.Hass):
     def update_printer_status_page(self, kwargs):
         self.download_page('http://{}{}'.format(self.host, self.STATUS_URL))
         if self.page:
-            soup = BeautifulSoup(self.page.text, 'html.parser')
-            tag = soup.find_all('dd')[0]
-            status = tag.string.lower()
+            pattern = r'<dd>.+>([A-Za-z\s]+)</.+</dd>'
+            regex = re.findall(pattern, self.page.text)
+            try:
+                status = regex[0].lower().rstrip()
+            except IndexError:
+                return
             attributes = {"friendly_name": "Printer status", "icon": "mdi:printer"}
             self.update_sensor('sensor.printer_status', status, attributes)
-            tag = soup.select('img.tonerremain')
+            pattern = r'class=\"tonerremain\" height=\"(\d+)\" />'
+            regex = re.findall(pattern, self.page.text)
             try:
-                toner = round(int(tag[0]['height']) / self.MAX_IMAGE_HEIGHT * 100)
-            except IndexError:
+                toner = round(int(regex[0]) / self.MAX_IMAGE_HEIGHT * 100)
+            except (IndexError, TypeError):
                 return
             attributes = {"friendly_name": "Remaining toner", "icon": "mdi:flask-outline", "unit_of_measurement": "%"}
             self.update_sensor('sensor.printer_toner', toner, attributes)
@@ -79,16 +80,20 @@ class BrotherPrinterStatus(hass.Hass):
     def update_printer_info_page(self, kwargs):
         self.download_page('http://{}{}'.format(self.host, self.INFO_URL))
         if self.page:
-            soup = BeautifulSoup(self.page.text, 'html.parser')
-            tag = soup.find_all('dd')[4]
+            pattern = r'<dd>(\d+)</dd>'
+            regex = re.findall(pattern, self.page.text)
             try:
-                printer_counter = int(tag.string)
-            except TypeError:
+                printer_counter = int(regex[0])
+            except (IndexError, TypeError):
                 return
             attributes = {"friendly_name": "Printer counter", "icon": "mdi:file-document", "unit_of_measurement": "p"}
             self.update_sensor('sensor.printer_counter', printer_counter, attributes)
-            tag = soup.find_all('dd')[8]
-            drum_usage = 100 - int(tag.string[1:-5])
+            pattern = r'\((\d+)\.00%\)'
+            regex = re.findall(pattern, self.page.text)
+            try:
+                drum_usage = 100 - int(regex[0])
+            except (IndexError, TypeError):
+                return
             attributes = {"friendly_name": "Drum usage", "icon": "mdi:chart-donut", "unit_of_measurement": "%"}
             self.update_sensor('sensor.printer_drum_usage', drum_usage, attributes)
     def update_sensor(self, entity, state, attributes):
