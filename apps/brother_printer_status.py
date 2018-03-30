@@ -25,7 +25,7 @@ class BrotherPrinterStatus(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.2'
+        __version__ = '0.2.1'
 
         self.MAX_IMAGE_HEIGHT = 56  # the maximum value of the height of the black image on the printer's webpage
         self.INFO_URL = '/general/information.html'
@@ -60,47 +60,44 @@ class BrotherPrinterStatus(hass.Hass):
     def update_printer_status_page(self, kwargs):
         self.download_page('http://{}{}'.format(self.host, self.STATUS_URL))
         if self.page:
-            pattern = r'<dd>.+>([A-Za-z\s]+)</.+</dd>'
-            regex = re.findall(pattern, self.page.text)
-            try:
-                status = regex[0].lower().rstrip()
-            except IndexError:
-                return
-            attributes = {"friendly_name": "Printer status", "icon": "mdi:printer"}
-            self.update_sensor('sensor.printer_status', status, attributes)
-            pattern = r'class=\"tonerremain\" height=\"(\d+)\" />'
-            regex = re.findall(pattern, self.page.text)
-            try:
-                toner = round(int(regex[0]) / self.MAX_IMAGE_HEIGHT * 100)
-            except (IndexError, TypeError):
-                return
-            attributes = {"friendly_name": "Remaining toner", "icon": "mdi:flask-outline", "unit_of_measurement": "%"}
-            self.update_sensor('sensor.printer_toner', toner, attributes)
+            regex_res = self.regex(r'<dd>.*>(\w+\s?\w+)\s+<.*</dd>')
+            self.log(regex_res)
+            if regex_res:
+                status = regex_res.lower()
+                if status:
+                    attributes = {"friendly_name": "Printer status", "icon": "mdi:printer"}
+                    self.set_state('sensor.printer_status', state = status, attributes = attributes)
+            regex_res = self.regex(r'class=\"tonerremain\" height=\"(\d+)\"')
+            if regex_res:
+                try:
+                    toner = round(int(regex_res) / self.MAX_IMAGE_HEIGHT * 100)
+                except TypeError:
+                    return
+                if toner:
+                    attributes = {"friendly_name": "Remaining toner", "icon": "mdi:flask-outline", "unit_of_measurement": "%"}
+                    self.set_state('sensor.printer_toner', state = toner, attributes = attributes)
 
     def update_printer_info_page(self, kwargs):
         self.download_page('http://{}{}'.format(self.host, self.INFO_URL))
         if self.page:
-            pattern = r'<dd>(\d+)</dd>'
-            regex = re.findall(pattern, self.page.text)
-            try:
-                printer_counter = int(regex[0])
-            except (IndexError, TypeError):
-                return
-            attributes = {"friendly_name": "Printer counter", "icon": "mdi:file-document", "unit_of_measurement": "p"}
-            self.update_sensor('sensor.printer_counter', printer_counter, attributes)
-            pattern = r'\((\d+)\.00%\)'
-            regex = re.findall(pattern, self.page.text)
-            try:
-                drum_usage = 100 - int(regex[0])
-            except (IndexError, TypeError):
-                return
-            attributes = {"friendly_name": "Drum usage", "icon": "mdi:chart-donut", "unit_of_measurement": "%"}
-            self.update_sensor('sensor.printer_drum_usage', drum_usage, attributes)
-    def update_sensor(self, entity, state, attributes):
-        try:
-            self.set_state(entity, state = state, attributes = attributes)
-        except:
-            return
+            regex_res = self.regex(r'<dd>(\d+)</dd>')
+            if regex_res:
+                try:
+                    counter = int(regex_res)
+                except TypeError:
+                    return
+                if counter:
+                    attributes = {"friendly_name": "Printer counter", "icon": "mdi:file-document", "unit_of_measurement": "p"}
+                    self.set_state('sensor.printer_counter', state = counter, attributes = attributes)
+            regex_res = self.regex(r'\((\d+\.\d+)%\)')
+            if regex_res:
+                try:
+                    drum_usage = round(100 - float(regex_res))
+                except TypeError:
+                    return
+                if drum_usage:
+                    attributes = {"friendly_name": "Drum usage", "icon": "mdi:chart-donut", "unit_of_measurement": "%"}
+                    self.set_state('sensor.printer_drum_usage', state = drum_usage, attributes = attributes)
 
     def download_page(self, url):
         self.page = None
@@ -109,3 +106,10 @@ class BrotherPrinterStatus(hass.Hass):
         except:
             self.error('Host {} unreachable or respond too slow!'.format(self.host))
             return
+
+    def regex(self, pattern):
+        resault = re.findall(pattern, self.page.text)
+        if len(resault) > 0:
+            return resault[0]
+        else:
+            return None

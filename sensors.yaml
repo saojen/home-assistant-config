@@ -147,15 +147,15 @@
       friendly_name: Status drukarki
       value_template: >-
          {% if states.sensor.printer_status %}
-            {% if states.sensor.printer_status.state == 'printing' %}
+            {% if states.sensor.printer_status.state == 'drukowanie' %}
                drukowanie
-            {% elif states.sensor.printer_status.state == 'please wait' %}
+            {% elif 'prosz' in states.sensor.printer_status.state %}
                nagrzewanie
-            {% elif states.sensor.printer_status.state == 'ready' %}
+            {% elif states.sensor.printer_status.state == 'gotowe' %}
                gotowość
-            {% elif states.sensor.printer_status.state == 'low toner' or states.sensor.printer_status.state == 'sleep' %}
+            {% elif 'toneru' in states.sensor.printer_status.state or states.sensor.printer_status.state == 'oczekiwanie' %}
                oczekiwanie
-            {% elif states.sensor.printer_status.state == 'replace toner' %}
+            {% elif 'wymie' in states.sensor.printer_status.state %}
                brak toneru
             {% else %}
                {{ states.sensor.printer_status.state }}
