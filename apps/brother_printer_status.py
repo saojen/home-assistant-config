@@ -61,7 +61,6 @@ class BrotherPrinterStatus(hass.Hass):
         self.download_page('http://{}{}'.format(self.host, self.STATUS_URL))
         if self.page:
             regex_res = self.regex(r'<dd>.*>(\w+\s?\w+)\s+<.*</dd>')
-            self.log(regex_res)
             if regex_res:
                 status = regex_res.lower()
                 if status:

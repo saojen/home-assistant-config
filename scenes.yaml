@@ -3,7 +3,7 @@
     light.bulbs_salon:
       state: on
       transition: 5
-      brightness: 110
+      brightness: 190
       color_temp: 350
     switch.light_leds_salon:
       state: off
