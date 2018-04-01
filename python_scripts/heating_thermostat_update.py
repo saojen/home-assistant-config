@@ -37,4 +37,4 @@ if thermostat_id and sensor_id:
             state = idle_state
         hass.states.set(thermostat_id, state, attributes)
 else:
-    logger.error('Wrong arguments!')
+    logger.error("Wrong arguments!")

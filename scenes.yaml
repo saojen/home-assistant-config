@@ -15,10 +15,10 @@
     light.bulbs_salon:
       state: on
       transition: 5
-      brightness: 128
+      brightness: 200
       rgb_color: [20,20,50]
     switch.light_leds_salon:
-      state: on
+      state: off
     switch.light_lamp_salon:
       state: off
 

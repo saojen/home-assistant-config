@@ -154,7 +154,7 @@
             {% elif states.sensor.printer_status.state == 'gotowa' %}
                gotowość
             {% elif 'toneru' in states.sensor.printer_status.state or states.sensor.printer_status.state == 'oczekiwanie' %}
-               uśpiepnie
+               uśpienie
             {% elif 'wymie' in states.sensor.printer_status.state %}
                brak toneru
             {% else %}

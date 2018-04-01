@@ -1,6 +1,5 @@
 custom_ui: local
 hide_attributes:
-  - old_entity_id
   - emulated_hue_hidden
   - value_index
   - value_instance

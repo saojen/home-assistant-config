@@ -25,13 +25,13 @@ class DuneActivity(hass.Hass):
 
         __version__ = '0.1.1'
 
-        self.URL_FORMAT = 'http://{}/cgi-bin/do'
+        self.URL_FORMAT = "http://{}/cgi-bin/do"
 
         try:
             if self.args['host']:
                 self.host = self.args['host']
         except KeyError:
-            self.error('Wrong arguments! You must supply a valid DuneHD media player hostname or IP address.')
+            self.error("Wrong arguments! You must supply a valid DuneHD media player hostname or IP address.")
             return
         try:
             if 'interval' in self.args:
@@ -39,7 +39,7 @@ class DuneActivity(hass.Hass):
             else:
                 interval = 60
         except ValueError:
-            self.error('Wrong arguments! Argument interval has to be an integer.')
+            self.error("Wrong arguments! Argument interval has to be an integer.")
             return
         self.run_every(self.update_activity, datetime.now(), interval)
 
@@ -52,7 +52,7 @@ class DuneActivity(hass.Hass):
         if not request:
             state = 'offline'
         elif request.status_code == 200:
-            state = re.compile('.*name="player_state" value="(.*)"').findall(request.text)[0]
+            state = re.compile(".*name=\"player_state\" value=\"(.*)\"").findall(request.text)[0]
         else:
             state = 'offline'
         try:
