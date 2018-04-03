@@ -198,6 +198,9 @@ sensor.speedtest_upload:
 sensor.speedtest_ping:
   friendly_name: Ping
   icon: mdi:timer
+  custom_ui_state_card: state-card-custom-ui
+  templates:
+    state: ${Math.round(state)}
 
 #### NETWORK DEVICES ####
 binary_sensor.router_status:

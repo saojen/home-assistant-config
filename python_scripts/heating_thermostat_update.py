@@ -1,12 +1,14 @@
 """
-Update Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature from external sensor.
+Update Z-Wave thermostats (e.g. Danfoss 014G0013) state and current temperature
+from external sensor.
 Version 0.2.2
 Arguments:
  - thermostat			- thermostat entity_id (required)
  - sensor				- sensor entity_id (required)
  - heat_state			- name of heating state, default 'heat' (optional)
  - idle_state			- name of idle state, default 'idle' (optional)
- - idle_heat_temp		- temperature value between 'idle' and 'heat' states, default 8 (optional)
+ - idle_heat_temp		- temperature value between 'idle' and 'heat' states,
+                          default 8 (optional)
 
 Configuration example:
 

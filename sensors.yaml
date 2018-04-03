@@ -152,9 +152,9 @@
             {% elif 'prosz' in states.sensor.printer_status.state %}
                nagrzewanie
             {% elif states.sensor.printer_status.state == 'gotowa' %}
-               gotowość
+               gotowa
             {% elif 'toneru' in states.sensor.printer_status.state or states.sensor.printer_status.state == 'oczekiwanie' %}
-               uśpienie
+               uśpiona
             {% elif 'wymie' in states.sensor.printer_status.state %}
                brak toneru
             {% else %}

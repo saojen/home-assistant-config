@@ -15,7 +15,7 @@ dune_activity:
 """
 
 import appdaemon.plugins.hass.hassapi as hass
-from requests import get
+import requests
 from datetime import datetime
 import re
 
@@ -23,7 +23,7 @@ class DuneActivity(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.1.1'
+        __version__ = '0.1.2'
 
         self.URL_FORMAT = "http://{}/cgi-bin/do"
 
@@ -31,7 +31,8 @@ class DuneActivity(hass.Hass):
             if self.args['host']:
                 self.host = self.args['host']
         except KeyError:
-            self.error("Wrong arguments! You must supply a valid DuneHD media player hostname or IP address.")
+            self.error("Wrong arguments! You must supply a valid DuneHD " \
+                       "media player hostname or IP address.")
             return
         try:
             if 'interval' in self.args:
@@ -39,20 +40,23 @@ class DuneActivity(hass.Hass):
             else:
                 interval = 60
         except ValueError:
-            self.error("Wrong arguments! Argument interval has to be an integer.")
+            self.error("Wrong arguments! Argument interval has to be an " \
+                       "integer.")
             return
         self.run_every(self.update_activity, datetime.now(), interval)
 
     def update_activity(self, kwargs):
         request = None
         try:
-            request = get(self.URL_FORMAT.format(self.host), timeout = 2)
-        except:
+            request = requests.get(self.URL_FORMAT.format(self.host), \
+                                   timeout = 2)
+        except requests.exceptions.RequestException:
             pass
         if not request:
             state = 'offline'
         elif request.status_code == 200:
-            state = re.compile(".*name=\"player_state\" value=\"(.*)\"").findall(request.text)[0]
+            pattern = re.compile(".*name=\"player_state\" value=\"(.*)\"")
+            state = findall(pattern, request.text)[0]
         else:
             state = 'offline'
         try:
