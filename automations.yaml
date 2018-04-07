@@ -198,6 +198,7 @@
         - binary_sensor.motion_salon
         - binary_sensor.motion_sypialnia
         - binary_sensor.motion_antek
+        - binary_sensor.motion_przedpokoj
       from: 'off'
       to: 'on'
   condition:
@@ -1212,10 +1213,6 @@
       from: 'on'
       to: 'off'
     - platform: state
-      entity_id: switch.light_leds_przedpokoj
-      from: 'on'
-      to: 'off'
-    - platform: state
       entity_id: media_player.denon
       to: 'off'
   condition:
@@ -1236,9 +1233,6 @@
         entity_id: switch.light_lamp_salon
         state: 'off'
       - condition: state
-        entity_id: switch.light_leds_przedpokoj
-        state: 'off'
-      - condition: state
         entity_id: input_boolean.guests
         state: 'off'
       - condition: state
@@ -1257,7 +1251,6 @@
     - service: homeassistant.turn_on
       entity_id:
         - switch.light_lamp_salon
-        - switch.light_leds_przedpokoj
         - input_boolean.salon_lamp_motion_on
 
 # wyłączenie lampy w salonie jak zniknie ruch lub włączy się światła
@@ -1287,7 +1280,6 @@
     - service: homeassistant.turn_off
       entity_id:
         - switch.light_lamp_salon
-        - switch.light_leds_przedpokoj
         - input_boolean.salon_lamp_motion_on
 
 # automatyczna zmiana temperatury koloru żarówek gdy wybrana scena auto
@@ -1511,6 +1503,70 @@
       entity_id: light.lightstrip_sypialnia
       data:
         transition: 10
+
+
+## PRZEDPOKÓJ ##
+# włączanie LEDów w przedpokoju jak jest ruch i ciemno
+- id: light_turn_on_przedpokoj_leds_when_dark_and_motion
+  alias: 'Light Turn On Przedpokoj LEDs When Dark And Motion'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_przedpokoj
+      from: 'off'
+      to: 'on'
+    - platform: numeric_state
+      entity_id: sensor.illumination_przedpokoj
+      below: 9
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: switch.light_leds_przedpokoj
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.illumination_przedpokoj
+        below: 9
+      - condition: state
+        entity_id: binary_sensor.motion_przedpokoj
+        state: 'on'
+      - condition: state
+        entity_id: switch.light_bulbs_salon
+        state: 'off'
+      - condition: state
+        entity_id: switch.light_leds_salon
+        state: 'off'
+      - condition: or
+        conditions:
+          - condition: sun
+            after: sunset
+          - condition: sun
+            before: sunrise
+  action:
+    - service: switch.turn_on
+      entity_id: switch.light_leds_przedpokoj
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.przedpokoj_lamp_motion_on
+
+# wyłączanie LEDów w przedpokoju jak brak ruchu lub zrobi się jaśniej
+- id: light_turn_off_przedpokoj_leds
+  alias: 'Light Turn Off Przedpokoj LEDs'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_przedpokoj
+      from: 'on'
+      to: 'off'
+    - platform: numeric_state
+      entity_id: sensor.illumination_przedpokoj
+      above: 2
+  condition:
+    condition: state
+    entity_id: input_boolean.przedpokoj_lamp_motion_on
+    state: 'on'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.przedpokoj_lamp_motion_on
+    - service: switch.turn_off
+      entity_id: switch.light_leds_przedpokoj
 
 ## POKÓJ ANTKA ##
 # włączanie LEDów w pokoju Antka jak natężenie światła spadnie poniżej 3 i jest ruch

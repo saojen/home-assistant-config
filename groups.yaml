@@ -286,6 +286,7 @@ batteries temp sensors:
 batteries motion sensors:
   name: Baterie sensorów ruchu
   entities:
+    - sensor.battery_body_sensor_przedpokoj
     - sensor.battery_body_sensor_salon_1
     - sensor.battery_body_sensor_salon_2
     - sensor.battery_body_sensor_schody
@@ -421,7 +422,10 @@ lazienka:
 przedpokoj:
   name: Przedpokój
   control: hidden
-  entities: switch.light_leds_przedpokoj
+  entities:
+    - sensor.illumination_przedpokoj
+    - binary_sensor.motion_przedpokoj
+    - switch.light_leds_przedpokoj
 
 windows:
   name: Okna

@@ -576,6 +576,29 @@
             mdi:battery-unknown
          {% endif %}
 
+    battery_body_sensor_przedpokoj:
+      friendly_name: przedpokoj
+      unit_of_measurement: '%'
+      value_template: >-
+         {% if states.binary_sensor.motion_przedpokoj.attributes.battery_level %}
+            {{ states.binary_sensor.motion_przedpokoj.attributes.battery_level | round }}
+         {% else %}
+            {{ states.sensor.battery_body_sensor_przedpokoj.state }}
+         {% endif %}
+
+      icon_template: >-
+         {% if states.binary_sensor.motion_przedpokoj.attributes.battery_level %}
+            {% if states.binary_sensor.motion_przedpokoj.attributes.battery_level != 'unknown' %}
+               {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+               {% set charge = (states.binary_sensor.motion_przedpokoj.attributes.battery_level | float / 10) | round %}
+               mdi:battery{{ battery[charge] }}
+            {% else %}
+               mdi:battery-unknown
+            {% endif %}
+         {% else %}
+            mdi:battery-unknown
+         {% endif %}
+
     battery_body_sensor_schody:
       friendly_name: schody
       unit_of_measurement: '%'

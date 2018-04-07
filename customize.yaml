@@ -333,6 +333,8 @@ binary_sensor.switch_light_antek:
   icon: mdi:led-variant-on
 
 #### XIAOMI MOTION SENSORS ####
+binary_sensor.motion_przedpokoj:
+  location: przedpokój
 binary_sensor.motion_antresola:
   location: antresola
 binary_sensor.motion_salon:

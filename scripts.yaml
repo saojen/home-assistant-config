@@ -33,7 +33,7 @@ xiaomi_alarm_stop:
     data:
       gw_mac: !secret xiaomi_gateway_mac
 
-#### OTHER ####
+#### LIGHT ####
 night_mode:
   sequence:
     - service: script.harmony_tv_off
@@ -47,15 +47,30 @@ night_mode:
 
 light_away_mode:
   sequence:
-    service: homeassistant.turn_off
-    entity_id:
-      - switch.light_leds_salon
-      - switch.light_bulbs_salon
-      - switch.light_lamp_salon
-      - switch.light_leds_przedpokoj
-      - light.gateway_antresola
-      - light.lightstrip_sypialnia
-      - light.lightstrip_antek
+    - service: homeassistant.turn_off
+      entity_id:
+        - switch.light_leds_salon
+        - switch.light_bulbs_salon
+        - switch.light_lamp_salon
+        - switch.light_leds_przedpokoj
+        - light.gateway_antresola
+    - service: script.light_turn_off_for_sure
+      data:
+        entity_id: light.lightstrip_sypialnia
+    - service: script.light_turn_off_for_sure
+      data:
+        entity_id: light.lightstrip_antek
+
+light_turn_off_for_sure:
+  sequence:
+    - service: light.turn_off
+      data_template:
+        entity_id: '{{ entity_id }}'
+    - delay:
+        minutes: 1
+    - service: light.turn_off
+      data_template:
+        entity_id: '{{ entity_id }}'
 
 #### HEATING ####
 heating_fast_warm_up:

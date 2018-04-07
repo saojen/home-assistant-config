@@ -1,159 +1,220 @@
 sensor.ipad_battery_level:
+  name:
   platform: ios
   unique_id: level_ipad
 sensor.ipad_battery_state:
+  name:
   platform: ios
   unique_id: state_ipad
 sensor.edyta_iphone_battery_level:
+  name:
   platform: ios
   unique_id: level_edyta_iphone
 sensor.edyta_iphone_battery_state:
+  name:
   platform: ios
   unique_id: state_edyta_iphone
 climate.thermostat_salon:
+  name:
   platform: zwave
   unique_id: 2-72057594076774418
 climate.thermostat_antek:
+  name:
   platform: zwave
   unique_id: 3-72057594093551634
 climate.thermostat_sypialnia:
+  name:
   platform: zwave
   unique_id: 4-72057594110328850
 climate.thermostat_kuchnia:
+  name:
   platform: zwave
   unique_id: 5-72057594127106066
 climate.thermostat_antresola:
+  name:
   platform: zwave
   unique_id: 12-72057594244546578
 switch.light_leds_salon:
+  name:
   platform: zwave
   unique_id: 13-72057594260832256
 switch.light_bulbs_salon:
+  name:
   platform: zwave
   unique_id: 13-144115188298760192
 sensor.light_leds_salon_energy:
+  name:
   platform: zwave
   unique_id: 13-72057594261045250
 sensor.light_bulbs_salon_energy:
+  name:
   platform: zwave
   unique_id: 13-144115188298973186
 sensor.light_leds_salon_power:
+  name:
   platform: zwave
   unique_id: 13-72057594261045378
 sensor.light_bulbs_salon_power:
+  name:
   platform: zwave
   unique_id: 13-144115188298973314
 climate.thermostat_lazienka:
+  name:
   platform: zwave
   unique_id: 14-72057594278101010
 binary_sensor.motion_antresola_2:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d000120a226
 binary_sensor.motion_salon_2:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d0001e16389
 binary_sensor.motion_antresola_1:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d00014d0a27
 binary_sensor.motion_salon_1:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d000121c604
 binary_sensor.switch_light_salon_2:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d00014a0911
 binary_sensor.motion_sypialnia:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d000165ffb8
 binary_sensor.balcony_door_sypialnia:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d0001a5dbdb
 binary_sensor.window_kuchnia:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d0001a223ff
 binary_sensor.switch_light_salon_1:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d000154964c
 binary_sensor.balcony_door_pracownia:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d00019fd83f
 binary_sensor.motion_antek:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d00016612fb
 binary_sensor.switch_light_antek:
+  name:
   platform: xiaomi_aqara
   unique_id: status158d0001d87c4f
 light.gateway_antresola:
+  name:
   platform: xiaomi_aqara
   unique_id: rgbf0b429cc6f0b
 sensor.temperature_sypialnia:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d0001100416
 sensor.humidity_antresola:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d000149cc8c
 sensor.pressure_outdoor:
+  name:
   platform: xiaomi_aqara
   unique_id: pressure158d0002273538
 sensor.temperature_pracownia:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d000201d5d5
 sensor.temperature_gabinet:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d0001826f20
 sensor.temperature_outdoor:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d0002273538
 sensor.illumination_salon:
+  name:
   platform: xiaomi_aqara
   unique_id: lux158d0001e16389
 sensor.humidity_antek:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d00010fb2cd
 sensor.temperature_antek:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d00010fb2cd
 sensor.humidity_gabinet:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d0001826f20
 sensor.temperature_goscinny:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d0001c09930
 sensor.illumination_antek:
+  name:
   platform: xiaomi_aqara
   unique_id: lux158d00016612fb
 sensor.temperature_antresola:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d000149cc8c
 sensor.illumination_antresola:
+  name:
   platform: xiaomi_aqara
   unique_id: illuminationf0b429cc6f0b
 sensor.illumination_sypialnia:
+  name:
   platform: xiaomi_aqara
   unique_id: lux158d000165ffb8
 sensor.humidity_sypialnia:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d0001100416
 sensor.temperature_salon:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d00010fb340
 sensor.humidity_pracownia:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d000201d5d5
 sensor.humidity_salon:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d00010fb340
 sensor.humidity_outdoor:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d0002273538
 sensor.temperature_lazienka:
+  name:
   platform: xiaomi_aqara
   unique_id: temperature158d000129a158
 sensor.humidity_lazienka:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d000129a158
 sensor.humidity_goscinny:
+  name:
   platform: xiaomi_aqara
   unique_id: humidity158d0001c09930
 media_player.salon:
+  name:
   platform: cast
   unique_id: 171676c2-1cbc-b4b4-7996-dfd07f688911
+binary_sensor.motion_przedpokoj:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d0001e16358
+sensor.illumination_przedpokoj:
+  name:
+  platform: xiaomi_aqara
+  unique_id: lux158d0001e16358
