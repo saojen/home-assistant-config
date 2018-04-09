@@ -133,7 +133,7 @@
   condition:
     condition: numeric_state
     entity_id: sensor.home_assistant_uptime
-    above: 3
+    above: 4
   action:
     service: notify.html5
     data_template:
@@ -746,23 +746,28 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: group.windows
-        state: 'off'
-      - condition: state
         entity_id: input_boolean.heating_season
         state: 'on'
       - condition: state
         entity_id: input_boolean.away_mode
         state: 'off'
-      - condition: template
-        value_template: "{{ (trigger.entity_id == 'group.windows' and states.input_boolean.heating_airing.state == 'on') or trigger.entity_id == 'input_boolean.heating_airing' }}"
   action:
     - service: script.heating_day
-    - condition: state
-      entity_id: input_boolean.heating_airing
-      state: 'on'
     - service: input_boolean.turn_off
       entity_id: input_boolean.heating_airing
+    - condition: state
+      entity_id: group.windows
+      state: 'on'
+    - service: notify.ios_edyta_iphone
+      data:
+        title: 'Koniec przewietrzania'
+        message: 'Wyłączono tryb przewietrzania. Proszę zamknąć okna!'
+    - service: notify.html5_oneplus
+      data:
+        title: 'Koniec przewietrzania'
+        message: 'Wyłączono tryb przewietrzania. Proszę zamknąć okna!'
+        data:
+          tag: 'notification-airing-end'
 
 # koniec przewietrzania o zachodzie słońca
 - id: heating_airing_end_at_sunset
@@ -780,18 +785,8 @@
         entity_id: input_boolean.heating_airing
         state: 'on'
   action:
-    - service: notify.ios_edyta_iphone
-      data:
-        title: 'Koniec przewietrzania'
-        message: 'O zachodzie słońca wyłączono tryb przewietrzania. Proszę zamknąć okna!'
-    - service: notify.html5_oneplus
-      data:
-        title: 'Koniec przewietrzania'
-        message: 'O zachodzie słońca wyłączono tryb przewietrzania. Proszę zamknąć okna!'
-        data:
-          tag: 'notification-airing-sunset-end'
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.heating_airing
+    service: input_boolean.turn_off
+    entity_id: input_boolean.heating_airing
 
 # początek sezonu grzewczego
 - id: heating_season_begin

@@ -5,8 +5,12 @@
   sensors:
     gaming:
       value_template: >-
-         {% for game in ["GT Racing 2","CrossyRoad","Rayman Adventures","BADLAND","Fast like a Fox","BB Racing","Red Ball 4","Sky Force","Minion Rush","Superfrog HD","Leo's Fortune","Rayman Fiesta Run","Minecraft","Riptide GP: Renegade"] %}
-            {% if game == states.sensor.androidtv_activity.state %}
+         {% for game in ["GT Racing 2","CrossyRoad","Rayman Adventures",
+                         "BADLAND","Fast like a Fox","BB Racing","Red Ball 4",
+                         "Sky Force","Minion Rush","Superfrog HD",
+                         "Leo's Fortune","Rayman Fiesta Run","Minecraft",
+                         "Riptide GP: Renegade"] %}
+            {% if game == states('sensor.androidtv_activity') %}
                true
             {% endif %}
          {% endfor %}
@@ -133,28 +137,35 @@
 
     sonoff_switch_lamp_status:
       friendly_name: Sonoff Basic [1]
-      value_template: "{{ is_state('device_tracker.sonoff_switch_lamp', 'home') }}"
+      value_template: "{{ is_state('device_tracker.sonoff_switch_lamp',
+                                   'home') }}"
 
     sonoff_switch_leds_status:
       friendly_name: Sonoff Basic [2]
-      value_template: "{{ is_state('device_tracker.sonoff_switch_leds', 'home') }}"
+      value_template: "{{ is_state('device_tracker.sonoff_switch_leds',
+                                   'home') }}"
 
     sonoff_switch_triple_status:
       friendly_name: Sonoff Basic [3]
-      value_template: "{{ is_state('device_tracker.sonoff_switch_triple', 'home') }}"
+      value_template: "{{ is_state('device_tracker.sonoff_switch_triple',
+                                   'home') }}"
 
     yeelight_bulb_salon1_status:
       friendly_name: Yeelight Bulb YLDP02YL [1]
-      value_template: "{{ is_state('device_tracker.yeelight_bulb_salon1', 'home') }}"
+      value_template: "{{ is_state('device_tracker.yeelight_bulb_salon1',
+                                   'home') }}"
 
     yeelight_bulb_salon2_status:
       friendly_name: Yeelight Bulb YLDP02YL [2]
-      value_template: "{{ is_state('device_tracker.yeelight_bulb_salon2', 'home') }}"
+      value_template: "{{ is_state('device_tracker.yeelight_bulb_salon2',
+                                   'home') }}"
 
     yeelight_lightstrip_sypialnia_status:
       friendly_name: Yeelight Lightstrip YLDD01YL [1]
-      value_template: "{{ is_state('device_tracker.yeelight_lightstrip_sypialnia', 'home') }}"
+      value_template: "{{ is_state('device_tracker.yeelight_lightstrip_sypialnia',
+                                   'home') }}"
 
     yeelight_lightstrip_antek_status:
       friendly_name: Yeelight Lightstrip YLDD01YL [2]
-      value_template: "{{ is_state('device_tracker.yeelight_lightstrip_antek', 'home') }}"
+      value_template: "{{ is_state('device_tracker.yeelight_lightstrip_antek',
+                                   'home') }}"
