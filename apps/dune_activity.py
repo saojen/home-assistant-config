@@ -56,7 +56,7 @@ class DuneActivity(hass.Hass):
             state = 'offline'
         elif request.status_code == 200:
             pattern = re.compile(".*name=\"player_state\" value=\"(.*)\"")
-            state = findall(pattern, request.text)[0]
+            state = re.findall(pattern, request.text)[0]
         else:
             state = 'offline'
         try:
