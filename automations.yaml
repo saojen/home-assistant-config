@@ -7,7 +7,7 @@
   action:
     service: homekit.start
 
-#### GAMES #######################################################################################
+#### GAMES #####################################################################
 # początek grania
 - id: start_games
   alias: 'Start Games'
@@ -42,7 +42,7 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{ (now().strftime("%H") | int) == (states.input_number.gaming_end_hours.state | int + 1)}}'
+        value_template: '{{ (now().strftime("%H") | int) == (states.input_number.gaming_end_hours.state | int + 1) }}'
       - condition: template
         value_template: '{{ (now().strftime("%M") | int) == (states.input_number.gaming_end_minutes.state | int) }}'
       - condition: state
@@ -68,9 +68,9 @@
       data:
         title: 'Zbyt długa gra'
         message: 'Gra trwa już godzinę. Pora skończyć!'
-##################################################################################################
+################################################################################
 
-#### ENERGY CONSUMPTION ##########################################################################
+#### ENERGY CONSUMPTION ########################################################
 # resetowanie miesięcznego zużycia energii
 - id: energy_reset_monthly_consumption
   alias: 'Energy Reset Monthly Consumption'
@@ -87,9 +87,9 @@
       data: {"node_id":13,"instance":1}
     - service: zwave.reset_node_meters
       data: {"node_id":13,"instance":2}
-##################################################################################################
+################################################################################
 
-#### PURGE RECORDER DATABASE #####################################################################
+#### PURGE RECORDER DATABASE ###################################################
 - id: purge_recorder_database
   alias: 'Purge Recorder Database'
   trigger:
@@ -100,9 +100,9 @@
   action:
     service: recorder.purge
     data: {"keep_days":4}
-##################################################################################################
+################################################################################
 
-#### NOTIFICATIONS ###############################################################################
+#### NOTIFICATIONS #############################################################
 # powiadomienie o wygasającym certyfikacie SSL
 - id: notification_ssl_cert_expiry
   alias: 'Notification SSL Cert Expiry'
@@ -124,12 +124,12 @@
   trigger:
     platform: template
     value_template: >
-       {% macro zwave_dead() %}
-          {% for item in states.zwave %}
-             {%- if (item.state != 'ready') and (item.state != 'sleeping') and (item.state != 'initializing') %}{% if not loop.first and not loop.last %}, {% endif %}{% if loop.last %}, {% endif %}{{ item.entity_id }}{% endif -%}
-          {% endfor %}
-       {% endmacro %}
-       {{ zwave_dead() | trim != '' }}
+      {% macro zwave_dead() %}
+        {% for item in states.zwave %}
+          {%- if (item.state != 'ready') and (item.state != 'sleeping') and (item.state != 'initializing') %}{% if not loop.first and not loop.last %}, {% endif %}{% if loop.last %}, {% endif %}{{ item.entity_id }}{% endif -%}
+        {% endfor %}
+      {% endmacro %}
+      {{ zwave_dead() | trim != '' }}
   condition:
     condition: numeric_state
     entity_id: sensor.home_assistant_uptime
@@ -139,12 +139,12 @@
     data_template:
       title: 'Błąd urządzenia Z-Wave'
       message: >
-         {% macro zwave_dead() %}
-            {% for item in states.zwave %}
-               {%- if (item.state != 'ready') and (item.state != 'sleeping') and (item.state != 'initializing') %}{% if not loop.first and not loop.last %}, {% endif %}{% if loop.last %}, {% endif %}{{ item.entity_id }}{% endif -%}
-            {% endfor %}
-         {% endmacro %}
-         Wystąpił błąd urządzenia Z-Wave {{ zwave_dead() | trim }}. Wymagany restart Home Assistant'a.
+        {% macro zwave_dead() %}
+          {% for item in states.zwave %}
+            {%- if (item.state != 'ready') and (item.state != 'sleeping') and (item.state != 'initializing') %}{% if not loop.first and not loop.last %}, {% endif %}{% if loop.last %}, {% endif %}{{ item.entity_id }}{% endif -%}
+          {% endfor %}
+        {% endmacro %}
+        Wystąpił błąd urządzenia Z-Wave {{ zwave_dead() | trim }}. Wymagany restart Home Assistant'a.
       data:
         tag: 'notification-zwave-error'
 
@@ -299,37 +299,37 @@
   condition:
     condition: template
     value_template: >
-       {% macro battery_level() %}
-          {%- set threshold = 10 -%}
-          {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock', 'binary_sensor'] %}
-          {% for domain in domains -%}
-             {% for item in states[domain] if (((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown")))) and not (( "humidity" in item.entity_id) or ("illumination" in item.entity_id)) -%}
-                {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
-                   {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
-                {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-                   {{ item.name }} ({{ item.state }}){% if not loop.last %}, {%- endif %} {% endif -%}
-             {% endfor %}
-          {%- endfor %}
-       {% endmacro %}
-       {{ battery_level() |trim != "" }}
+      {% macro battery_level() %}
+        {%- set threshold = 10 -%}
+        {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock', 'binary_sensor'] %}
+        {% for domain in domains -%}
+          {% for item in states[domain] if (((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown")))) and not (( "humidity" in item.entity_id) or ("illumination" in item.entity_id)) -%}
+            {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+              {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
+            {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+              {{ item.name }} ({{ item.state }}){% if not loop.last %}, {%- endif %} {% endif -%}
+          {% endfor %}
+        {%- endfor %}
+      {% endmacro %}
+      {{ battery_level() |trim != "" }}
   action:
     service: notify.html5_oneplus
     data_template:
       title: 'Niski poziom naładowania baterii'
       message: >
-         {% macro battery_level() %}
-            {%- set threshold = 20 -%}
-            {%- set domains = ['light', 'switch', 'sensor', 'zwave', 'lock', 'binary_sensor'] -%}
-            {% for domain in domains -%}
-               {% for item in states[domain] if (((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown")))) and not (( "humidity" in item.entity_id) or ("illumination" in item.entity_id)) -%}
-                 {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
-                    {{ item.entity_id }} [{{ item.attributes['battery_level'] | round(0) }}%]{%- if not loop.last %}, {% endif -%}{% endif -%}
-                 {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-                    {{ item.entity_id }} [{{ item.state | round(0) }}%]{% if not loop.last %}, {%- endif %} {% endif -%}
-               {% endfor %}
-            {%- endfor %}
-         {% endmacro %}
-         W następujących urządzeniach jest niski poziom naładowania baterii: {{ battery_level() }}
+        {% macro battery_level() %}
+          {%- set threshold = 20 -%}
+          {%- set domains = ['light', 'switch', 'sensor', 'zwave', 'lock', 'binary_sensor'] -%}
+          {% for domain in domains -%}
+            {% for item in states[domain] if (((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown")))) and not (( "humidity" in item.entity_id) or ("illumination" in item.entity_id)) -%}
+              {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+                {{ item.entity_id }} [{{ item.attributes['battery_level'] | round(0) }}%]{%- if not loop.last %}, {% endif -%}{% endif -%}
+              {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+                {{ item.entity_id }} [{{ item.state | round(0) }}%]{% if not loop.last %}, {%- endif %} {% endif -%}
+            {% endfor %}
+          {%- endfor %}
+        {% endmacro %}
+        W następujących urządzeniach jest niski poziom naładowania baterii: {{ battery_level() }}
       data:
         tag: 'notification-low-battery'
 ##################################################################################################
@@ -821,14 +821,14 @@
     conditions:
       - condition: template
         value_template: >-
-           {% if (trigger.to_state and trigger.from_state) %}
-              {{ trigger.to_state.attributes.temperature != trigger.from_state.attributes.temperature }}
-           {% endif %}
+          {% if (trigger.to_state and trigger.from_state) %}
+            {{ trigger.to_state.attributes.temperature != trigger.from_state.attributes.temperature }}
+          {% endif %}
       - condition: template
         value_template: >-
-           {% if (trigger.to_state and states.climate.thermostat_kuchnia) %}
-              {{ trigger.to_state.attributes.temperature != states.climate.thermostat_kuchnia.attributes.temperature }}
-           {% endif %}
+          {% if (trigger.to_state and states.climate.thermostat_kuchnia) %}
+            {{ trigger.to_state.attributes.temperature != states.climate.thermostat_kuchnia.attributes.temperature }}
+          {% endif %}
       - condition: template
         value_template: "{{ (trigger.to_state.attributes.temperature | float) != 4.3 }}"
   action:
@@ -848,14 +848,14 @@
     conditions:
       - condition: template
         value_template: >-
-           {% if (trigger.to_state and trigger.from_state) %}
-              {{ trigger.to_state.attributes.temperature != trigger.from_state.attributes.temperature }}
-           {% endif %}
+          {% if (trigger.to_state and trigger.from_state) %}
+            {{ trigger.to_state.attributes.temperature != trigger.from_state.attributes.temperature }}
+          {% endif %}
       - condition: template
         value_template: >-
-           {% if (trigger.to_state and states.climate.thermostat_salon) %}
-              {{ trigger.to_state.attributes.temperature != states.climate.thermostat_salon.attributes.temperature }}
-           {% endif %}
+          {% if (trigger.to_state and states.climate.thermostat_salon) %}
+            {{ trigger.to_state.attributes.temperature != states.climate.thermostat_salon.attributes.temperature }}
+          {% endif %}
       - condition: template
         value_template: "{{ (trigger.to_state.attributes.temperature | float) != 4.3 }}"
   action:
@@ -934,27 +934,27 @@
     condition: template
     value_template: >-
       {% if "thermostat" in trigger.entity_id and trigger.to_state.attributes.current_temperature == none %}
-         true
+        true
       {% elif "sensor" in trigger.entity_id %}
-         true
+        true
       {% else %}
-         false
+        false
       {% endif %}
   action:
     service: python_script.heating_thermostat_update
     data_template:
       thermostat: >-
-         {% if "thermostat" in trigger.entity_id %}
-            {{ trigger.entity_id }}
-         {% else %}
-            climate.thermostat_{{ trigger.entity_id | replace('sensor.temperature_', '') }}
-         {% endif %}
+        {% if "thermostat" in trigger.entity_id %}
+          {{ trigger.entity_id }}
+        {% else %}
+          climate.thermostat_{{ trigger.entity_id | replace('sensor.temperature_', '') }}
+        {% endif %}
       sensor: >-
-         {% if "sensor" in trigger.entity_id %}
-            {{ trigger.entity_id }}
-         {% else %}
-            sensor.temperature_{{ (trigger.entity_id | replace('climate.thermostat_', '')) }}
-         {% endif %}
+        {% if "sensor" in trigger.entity_id %}
+          {{ trigger.entity_id }}
+        {% else %}
+          sensor.temperature_{{ (trigger.entity_id | replace('climate.thermostat_', '')) }}
+        {% endif %}
       heat_state: 'auto'
 
 # uruchamia skrypt aktualizaujący current temp na starcie HA

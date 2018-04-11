@@ -1,4 +1,3 @@
-listen_port: 80
 expose_by_default: false
 exposed_domains:
   - switch
