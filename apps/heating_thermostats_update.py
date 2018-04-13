@@ -42,9 +42,9 @@ class HeatingThermostatsUpdate(hass.Hass):
 
     def initialize(self):
 
-        __version__ = '0.2.4'
+        __version__ = '0.2.5'
 
-        self.zwave_ready_handle = None
+        self.zwave_handle = None
 
         if 'wait_for_zwave' in self.args:
             wait_for_zwave = self.args['wait_for_zwave']
@@ -87,7 +87,7 @@ class HeatingThermostatsUpdate(hass.Hass):
             for room in self.args['rooms']:
                 thermostat = self.args['rooms'][room]['thermostat']
                 sensor = self.args['rooms'][room]['sensor']
-                if not self.entity_exists(thermostat)
+                if not self.entity_exists(thermostat) \
                     or not self.entity_exists(sensor):
                     self.error("Wrong arguments! At least one of the entities" \
                                " does not exist.")
@@ -97,7 +97,7 @@ class HeatingThermostatsUpdate(hass.Hass):
                 self.listen_state(self.sensor_state_changed, sensor)
                 if self.get_state(thermostat, \
                                   attribute='current_temperature') == None:
-                    self.thermostat_state_changed(thermostat,
+                    self.thermostat_state_changed(thermostat, \
                                           attribute = 'current_temperature', \
                                           old = None, new = None, kwargs = None)
             self.log("Ready for action...")
