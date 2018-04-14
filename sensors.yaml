@@ -49,7 +49,8 @@
   scan_interval: 1800
 
 - platform: command_line
-  command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json()['info']['version'])"
+  command: python3 -c "import requests; print(requests.get('https://pypi.python.org/pypi/homeassistant/json').json())"
+  value_template: "{{ value_json['info']['version'] }}"
   name: HA Version Current
   scan_interval: 1800
 
@@ -205,51 +206,43 @@
       friendly_name: antresola
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.zwave.thermostat_antresola %}
-          {% if states.zwave.thermostat_antresola.attributes.battery_level %}
-            {{ states.zwave.thermostat_antresola.attributes.battery_level }}
-          {% else %}
-            {{ states('sensor.battery_thermostat_antresola') }}
-          {% endif %}
+        {% if state_attr('zwave.thermostat_antresola', 'battery_level') %}
+          {{ state_attr('zwave.thermostat_antresola', 'battery_level') }}
         {% else %}
           {{ states('sensor.battery_thermostat_antresola') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.zwave.thermostat_antresola %}
-          {% if states.zwave.thermostat_antresola.attributes.battery_level %}
+        {% if state_attr('zwave.thermostat_antresola', 'battery_level') %}
+          {% if not is_state_attr('zwave.thermostat_antresola', 'battery_level', 'unknown') %}
             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-            {% set charge = (states.zwave.thermostat_antresola.attributes.battery_level | float / 10) | round %}
+            {% set charge = (state_attr('zwave.thermostat_antresola', 'battery_level') | float / 10) | round %}
             mdi:battery{{ battery[charge] }}
           {% else %}
             mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
-        {% endif %}
+        {%endif %}
 
     battery_thermostat_lazienka:
       friendly_name: łazienka
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.zwave.thermostat_lazienka %}
-          {% if states.zwave.thermostat_lazienka.attributes.battery_level %}
-            {{ states.zwave.thermostat_lazienka.attributes.battery_level }}
-          {% else %}
-            {{ states('sensor.battery_thermostat_lazienka') }}
-          {% endif %}
+        {% if state_attr('zwave.thermostat_lazienka', 'battery_level') %}
+          {{ state_attr('zwave.thermostat_lazienka', 'battery_level') }}
         {% else %}
           {{ states('sensor.battery_thermostat_lazienka') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.zwave.thermostat_lazienka %}
-          {% if states.zwave.thermostat_lazienka.attributes.battery_level %}
+        {% if state_attr('zwave.thermostat_lazienka', 'battery_level') %}
+          {% if not is_state_attr('zwave.thermostat_lazienka', 'battery_level', 'unknown') %}
             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-            {% set charge = (states.zwave.thermostat_lazienka.attributes.battery_level | float / 10) | round %}
+            {% set charge = (state_attr('zwave.thermostat_lazienka', 'battery_level') | float / 10) | round %}
             mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -259,24 +252,20 @@
       friendly_name: salon
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.zwave.thermostat_salon %}
-          {% if states.zwave.thermostat_salon.attributes.battery_level %}
-            {{ states.zwave.thermostat_salon.attributes.battery_level }}
-          {% else %}
-            {{ states('sensor.battery_thermostat_salon') }}
-          {% endif %}
+        {% if state_attr('zwave.thermostat_salon', 'battery_level') %}
+          {{ state_attr('zwave.thermostat_salon', 'battery_level') }}
         {% else %}
           {{ states('sensor.battery_thermostat_salon') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.zwave.thermostat_salon %}
-          {% if states.zwave.thermostat_salon.attributes.battery_level %}
+        {% if state_attr('zwave.thermostat_salon', 'battery_level') %}
+          {% if not is_state_attr('zwave.thermostat_salon', 'battery_level', 'unknown') %}
             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-            {% set charge = (states.zwave.thermostat_salon.attributes.battery_level | float / 10) | round %}
+            {% set charge = (state_attr('zwave.thermostat_salon', 'battery_level') | float / 10) | round %}
             mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -286,21 +275,17 @@
       friendly_name: kuchnia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.zwave.thermostat_kuchnia %}
-          {% if states.zwave.thermostat_kuchnia.attributes.battery_level %}
-            {{ states.zwave.thermostat_kuchnia.attributes.battery_level }}
-          {% else %}
-            {{ states('sensor.battery_thermostat_kuchnia') }}
-          {% endif %}
+        {% if state_attr('zwave.thermostat_kuchnia', 'battery_level') %}
+          {{ state_attr('zwave.thermostat_kuchnia', 'battery_level') }}
         {% else %}
           {{ states('sensor.battery_thermostat_kuchnia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.zwave.thermostat_kuchnia %}
-          {% if states.zwave.thermostat_kuchnia.attributes.battery_level %}
+        {% if state_attr('zwave.thermostat_kuchnia', 'battery_level') %}
+          {% if not is_state_attr('zwave.thermostat_kuchnia', 'battery_level', 'unknown') %}
             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-            {% set charge = (states.zwave.thermostat_kuchnia.attributes.battery_level | float / 10) | round %}
+            {% set charge = (state_attr('zwave.thermostat_kuchnia', 'battery_level') | float / 10) | round %}
             mdi:battery{{ battery[charge] }}
           {% else %}
             mdi:battery-unknown
@@ -313,24 +298,20 @@
       friendly_name: sypialnia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.zwave.thermostat_sypialnia %}
-          {% if states.zwave.thermostat_sypialnia.attributes.battery_level %}
-            {{ states.zwave.thermostat_sypialnia.attributes.battery_level }}
-          {% else %}
-            {{ states('sensor.battery_thermostat_sypialnia') }}
-          {% endif %}
+        {% if state_attr('zwave.thermostat_sypialnia', 'battery_level') %}
+          {{ state_attr('zwave.thermostat_sypialnia', 'battery_level') }}
         {% else %}
           {{ states('sensor.battery_thermostat_sypialnia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.zwave.thermostat_sypialnia %}
-          {% if states.zwave.thermostat_sypialnia.attributes.battery_level %}
+        {% if state_attr('zwave.thermostat_sypialnia', 'battery_level') %}
+          {% if not is_state_attr('zwave.thermostat_sypialnia', 'battery_level', 'unknown') %}
             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-            {% set charge = (states.zwave.thermostat_sypialnia.attributes.battery_level | float / 10) | round %}
+            {% set charge = (state_attr('zwave.thermostat_sypialnia', 'battery_level') | float / 10) | round %}
             mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -340,24 +321,20 @@
       friendly_name: pokój Antka
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.zwave.thermostat_antek %}
-          {% if states.zwave.thermostat_antek.attributes.battery_level %}
-            {{ states.zwave.thermostat_antek.attributes.battery_level }}
-          {% else %}
-            {{ states('sensor.battery_thermostat_antek') }}
-          {% endif %}
+        {% if state_attr('zwave.thermostat_antek', 'battery_level') %}
+          {{ state_attr('zwave.thermostat_antek', 'battery_level') }}
         {% else %}
           {{ states('sensor.battery_thermostat_antek') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.zwave.thermostat_antek %}
-          {% if states.zwave.thermostat_antek.attributes.battery_level %}
+        {% if state_attr('zwave.thermostat_antek', 'battery_level') %}
+          {% if not is_state_attr('zwave.thermostat_antek', 'battery_level', 'unknown') %}
             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-            {% set charge = (states.zwave.thermostat_antek.attributes.battery_level | float / 10) | round %}
+            {% set charge = (state_attr('zwave.thermostat_antek', 'battery_level') | float / 10) | round %}
             mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -367,20 +344,20 @@
       friendly_name: zewnętrzny
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_outdoor.attributes.battery_level %}
-          {{ states.sensor.temperature_outdoor.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_outdoor', 'battery_level') %}
+          {{ state_attr('sensor.temperature_outdoor', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_outdoor.state }}
+          {{ states('sensor.battery_temp_humi_sensor_outdoor') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_outdoor.attributes.battery_level %}
-          {% if states.sensor.temperature_outdoor.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_outdoor.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_outdoor', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_outdoor', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_outdoor', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -390,20 +367,20 @@
       friendly_name: pracownia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_pracownia.attributes.battery_level %}
-          {{ states.sensor.temperature_pracownia.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_pracownia', 'battery_level') %}
+          {{ state_attr('sensor.temperature_pracownia', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_pracownia.state }}
+          {{ states('sensor.battery_temp_humi_sensor_pracownia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_pracownia.attributes.battery_level %}
-          {% if states.sensor.temperature_pracownia.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_pracownia.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_pracownia', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_pracownia', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_pracownia', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -413,20 +390,20 @@
       friendly_name: pokój Antka
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_antek.attributes.battery_level %}
-          {{ states.sensor.temperature_antek.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_antek', 'battery_level') %}
+          {{ state_attr('sensor.temperature_antek', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_antek.state }}
+          {{ states('sensor.battery_temp_humi_sensor_antek') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_antek.attributes.battery_level %}
-          {% if states.sensor.temperature_antek.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_antek.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_antek', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_antek', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_antek', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -436,20 +413,20 @@
       friendly_name: salon
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_salon.attributes.battery_level %}
-          {{ states.sensor.temperature_salon.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_salon', 'battery_level') %}
+          {{ state_attr('sensor.temperature_salon', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_salon.state }}
+          {{ states('sensor.battery_temp_humi_sensor_salon') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_salon.attributes.battery_level %}
-          {% if states.sensor.temperature_salon.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_salon.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_salon', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_salon', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_salon', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -459,20 +436,20 @@
       friendly_name: pokój gościnny
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_goscinny.attributes.battery_level %}
-          {{ states.sensor.temperature_goscinny.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_goscinny', 'battery_level') %}
+          {{ state_attr('sensor.temperature_goscinny', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_goscinny.state }}
+          {{ states('sensor.battery_temp_humi_sensor_goscinny') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_goscinny.attributes.battery_level %}
-          {% if states.sensor.temperature_goscinny.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_goscinny.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_goscinny', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_goscinny', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_goscinny', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -482,20 +459,20 @@
       friendly_name: sypialnia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_sypialnia.attributes.battery_level %}
-          {{ states.sensor.temperature_sypialnia.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_sypialnia', 'battery_level') %}
+          {{ state_attr('sensor.temperature_sypialnia', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_sypialnia.state }}
+          {{ states('sensor.battery_temp_humi_sensor_sypialnia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_sypialnia.attributes.battery_level %}
-          {% if states.sensor.temperature_sypialnia.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_sypialnia.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_sypialnia', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_sypialnia', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_sypialnia', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -505,20 +482,20 @@
       friendly_name: łazienka
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_lazienka.attributes.battery_level %}
-          {{ states.sensor.temperature_lazienka.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_lazienka', 'battery_level') %}
+          {{ state_attr('sensor.temperature_lazienka', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_lazienka.state }}
+          {{ states('sensor.battery_temp_humi_sensor_lazienka') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_lazienka.attributes.battery_level %}
-          {% if states.sensor.temperature_lazienka.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_lazienka.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_lazienka', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_lazienka', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_lazienka', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -528,20 +505,20 @@
       friendly_name: antresola
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_antresola.attributes.battery_level %}
-          {{ states.sensor.temperature_antresola.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_antresola', 'battery_level') %}
+          {{ state_attr('sensor.temperature_antresola', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_antresola.state }}
+          {{ states('sensor.battery_temp_humi_sensor_antresola') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_antresola.attributes.battery_level %}
-          {% if states.sensor.temperature_antresola.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_antresola.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_antresola', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_antresola', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_antresola', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -551,20 +528,20 @@
       friendly_name: gabinet
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.sensor.temperature_gabinet.attributes.battery_level %}
-          {{ states.sensor.temperature_gabinet.attributes.battery_level | round }}
+        {% if state_attr('sensor.temperature_gabinet', 'battery_level') %}
+          {{ state_attr('sensor.temperature_gabinet', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_temp_humi_sensor_gabinet.state }}
+          {{ states('sensor.battery_temp_humi_sensor_gabinet') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.sensor.temperature_gabinet.attributes.battery_level %}
-          {% if states.sensor.temperature_gabinet.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.sensor.temperature_gabinet.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('sensor.temperature_gabinet', 'battery_level') %}
+          {% if not is_state_attr('sensor.temperature_gabinet', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('sensor.temperature_gabinet', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -574,20 +551,20 @@
       friendly_name: antresola
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_antresola_1.attributes.battery_level %}
-          {{ states.binary_sensor.motion_antresola_1.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_antresola_1', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_antresola_1', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_atresola.state }}
+          {{ states('sensor.battery_body_sensor_atresola') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_antresola_1.attributes.battery_level %}
-          {% if states.binary_sensor.motion_antresola_1.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_antresola_1.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_antresola_1', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_antresola_1', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_antresola_1', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -597,20 +574,20 @@
       friendly_name: przedpokoj
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_przedpokoj.attributes.battery_level %}
-          {{ states.binary_sensor.motion_przedpokoj.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_przedpokoj', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_przedpokoj', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_przedpokoj.state }}
+          {{ states('sensor.battery_body_sensor_przedpokoj') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_przedpokoj.attributes.battery_level %}
-          {% if states.binary_sensor.motion_przedpokoj.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_przedpokoj.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_przedpokoj', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_przedpokoj', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_przedpokoj', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -620,20 +597,20 @@
       friendly_name: schody
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_antresola_2.attributes.battery_level %}
-          {{ states.binary_sensor.motion_antresola_2.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_antresola_2', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_antresola_2', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_schody.state }}
+          {{ states('sensor.battery_body_sensor_schody') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_antresola_2.attributes.battery_level %}
-          {% if states.binary_sensor.motion_antresola_2.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_antresola_2.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_antresola_2', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_antresola_2', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_antresola_2', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -643,20 +620,20 @@
       friendly_name: salon [1]
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_salon_1.attributes.battery_level %}
-          {{ states.binary_sensor.motion_salon_1.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_salon_1', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_salon_1', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_salon_1.state }}
+          {{ states('sensor.battery_body_sensor_salon_1') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_salon_1.attributes.battery_level %}
-          {% if states.binary_sensor.motion_salon_1.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_salon_1.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_salon_1', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_salon_1', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_salon_1', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -666,20 +643,20 @@
       friendly_name: sypialnia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_sypialnia.attributes.battery_level %}
-          {{ states.binary_sensor.motion_sypialnia.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_sypialnia', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_sypialnia', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_sypialnia.state }}
+          {{ states('sensor.battery_body_sensor_sypialnia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_sypialnia.attributes.battery_level %}
-          {% if states.binary_sensor.motion_sypialnia.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_sypialnia.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_sypialnia', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_sypialnia', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_sypialnia', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -689,20 +666,20 @@
       friendly_name: pokój Antka
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_antek.attributes.battery_level %}
-          {{ states.binary_sensor.motion_antek.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_antek', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_antek', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_antek.state }}
+          {{ states('sensor.battery_body_sensor_antek') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_antek.attributes.battery_level %}
-          {% if states.binary_sensor.motion_antek.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_antek.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_antek', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_antek', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_antek', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -712,20 +689,20 @@
       friendly_name: salon [2]
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.motion_salon_2.attributes.battery_level %}
-          {{ states.binary_sensor.motion_salon_2.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.motion_salon_2', 'battery_level') %}
+          {{ state_attr('binary_sensor.motion_salon_2', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_body_sensor_salon_2.state }}
+          {{ states('sensor.battery_body_sensor_salon_2') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.motion_salon_2.attributes.battery_level %}
-          {% if states.binary_sensor.motion_salon_2.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.motion_salon_2.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.motion_salon_2', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.motion_salon_2', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.motion_salon_2', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -735,20 +712,20 @@
       friendly_name: salon [1]
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.switch_light_salon_1.attributes.battery_level %}
-          {{ states.binary_sensor.switch_light_salon_1.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.switch_light_salon_1', 'battery_level') %}
+          {{ state_attr('binary_sensor.switch_light_salon_1', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_switch_light_salon_1.state }}
+          {{ states('sensor.battery_switch_light_salon_1') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.switch_light_salon_1.attributes.battery_level %}
-          {% if states.binary_sensor.switch_light_salon_1.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.switch_light_salon_1.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.switch_light_salon_1', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.switch_light_salon_1', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.switch_light_salon_1', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -758,20 +735,20 @@
       friendly_name: salon [2]
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.switch_light_salon_2.attributes.battery_level %}
-          {{ states.binary_sensor.switch_light_salon_2.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.switch_light_salon_2', 'battery_level') %}
+          {{ state_attr('binary_sensor.switch_light_salon_2', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_switch_light_salon_2.state }}
+          {{ states('sensor.battery_switch_light_salon_2') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.switch_light_salon_2.attributes.battery_level %}
-          {% if states.binary_sensor.switch_light_salon_2.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.switch_light_salon_2.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.switch_light_salon_2', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.switch_light_salon_2', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.switch_light_salon_2', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -781,20 +758,20 @@
       friendly_name: pokój Antka
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.switch_light_antek.attributes.battery_level %}
-          {{ states.binary_sensor.switch_light_antek.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.switch_light_antek', 'battery_level') %}
+          {{ state_attr('binary_sensor.switch_light_antek', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_switch_light_antek.state }}
+          {{ states('sensor.battery_switch_light_antek') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.switch_light_antek.attributes.battery_level %}
-          {% if states.binary_sensor.switch_light_antek.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.switch_light_antek.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.switch_light_antek', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.switch_light_antek', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.switch_light_antek', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -804,20 +781,20 @@
       friendly_name: kuchnia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.window_kuchnia.attributes.battery_level %}
-          {{ states.binary_sensor.window_kuchnia.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.window_kuchnia', 'battery_level') %}
+          {{ state_attr('binary_sensor.window_kuchnia', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_window_sensor_kuchnia.state }}
+          {{ states('sensor.battery_window_sensor_kuchnia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.window_kuchnia.attributes.battery_level %}
-          {% if states.binary_sensor.window_kuchnia.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.window_kuchnia.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.window_kuchnia', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.window_kuchnia', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.window_kuchnia', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -827,20 +804,20 @@
       friendly_name: sypialnia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.balcony_door_sypialnia.attributes.battery_level %}
-          {{ states.binary_sensor.balcony_door_sypialnia.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.balcony_door_sypialnia', 'battery_level') %}
+          {{ state_attr('binary_sensor.balcony_door_sypialnia', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_door_sensor_sypialnia.state }}
+          {{ states('sensor.battery_door_sensor_sypialnia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.balcony_door_sypialnia.attributes.battery_level %}
-          {% if states.binary_sensor.balcony_door_sypialnia.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.balcony_door_sypialnia.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.balcony_door_sypialnia', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.balcony_door_sypialnia', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.balcony_door_sypialnia', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -850,20 +827,20 @@
       friendly_name: pracownia
       unit_of_measurement: '%'
       value_template: >-
-        {% if states.binary_sensor.balcony_door_pracownia.attributes.battery_level %}
-          {{ states.binary_sensor.balcony_door_pracownia.attributes.battery_level | round }}
+        {% if state_attr('binary_sensor.balcony_door_pracownia', 'battery_level') %}
+          {{ state_attr('binary_sensor.balcony_door_pracownia', 'battery_level') | round }}
         {% else %}
-          {{ states.sensor.battery_door_sensor_pracownia.state }}
+          {{ states('sensor.battery_door_sensor_pracownia') }}
         {% endif %}
 
       icon_template: >-
-        {% if states.binary_sensor.balcony_door_pracownia.attributes.battery_level %}
-          {% if states.binary_sensor.balcony_door_pracownia.attributes.battery_level != 'unknown' %}
-             {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
-             {% set charge = (states.binary_sensor.balcony_door_pracownia.attributes.battery_level | float / 10) | round %}
-             mdi:battery{{ battery[charge] }}
+        {% if state_attr('binary_sensor.balcony_door_pracownia', 'battery_level') %}
+          {% if not is_state_attr('binary_sensor.balcony_door_pracownia', 'battery_level', 'unknown') %}
+            {% set battery = ['-outline','-10','-20','-30','-40','-50','-60','-70','-80','-90','-100'] %}
+            {% set charge = (state_attr('binary_sensor.balcony_door_pracownia', 'battery_level') | float / 10) | round %}
+            mdi:battery{{ battery[charge] }}
           {% else %}
-             mdi:battery-unknown
+            mdi:battery-unknown
           {% endif %}
         {% else %}
           mdi:battery-unknown
@@ -974,7 +951,7 @@
       friendly_name: Wschód słońca
       value_template: >-
         {% if states.sun.sun %}
-          {{ as_timestamp(states.sun.sun.attributes.next_rising) | timestamp_custom("%H:%M") }}
+          {{ as_timestamp(state_attr('sun.sun', 'next_rising')) | timestamp_custom("%H:%M") }}
         {% else %}
           {{ states('sensor.sunrise.state') }}
         {% endif %}
@@ -983,7 +960,7 @@
       friendly_name: Zachód słońca
       value_template: >-
         {% if states.sun.sun %}
-          {{ as_timestamp(states.sun.sun.attributes.next_setting) | timestamp_custom("%H:%M") }}
+          {{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom("%H:%M") }}
         {% else %}
           {{ states('sensor.sunset') }}
         {% endif %}
@@ -1002,35 +979,35 @@
           mdi:weather-snowy-rainy
         {% elif is_state('sensor.dark_sky_icon', 'thunderstorm') %}
           mdi:weather-lightning-rainy
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-sunny.svg') %}
+        {% elif 'weather-sunny.svg' in state_attr('sensor.dark_sky_summary',
+                                                  'entity_picture') %}
           mdi:weather-sunny
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-night.svg') %}
+        {% elif 'weather-night.svg' in state_attr('sensor.dark_sky_summary',
+                                                  'entity_picture') %}
           mdi:weather-night
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-pouring.svg') %}
+        {% elif 'weather-pouring.svg' in state_attr('sensor.dark_sky_summary',
+                                                    'entity_picture') %}
           mdi:weather-pouring
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-snowy.svg') %}
+        {% elif 'weather-snowy.svg' in state_attr('sensor.dark_sky_summary',
+                                                  'entity_picture') %}
           mdi:weather-snowy
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-hail.svg') %}
+        {% elif 'weather-hail.svg' in state_attr('sensor.dark_sky_summary',
+                                                 'entity_picture') %}
           mdi:weather-hail
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-windy.svg') %}
+        {% elif 'weather-windy.svg' in state_attr('sensor.dark_sky_summary',
+                                                  'entity_picture') %}
           mdi:weather-windy
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              'static/images/darksky/weather-fog.svg') %}
+        {% elif 'weather-fog.svg' in state_attr('sensor.dark_sky_summary',
+                                                'entity_picture') %}
           mdi:weather-fog
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-cloudy.svg') %}
+        {% elif 'weather-cloudy.svg' in state_attr('sensor.dark_sky_summary',
+                                                   'entity_picture') %}
           mdi:weather-cloudy
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                           '/static/images/darksky/weather-partlycloudy.svg') %}
+        {% elif 'weather-partlycloudy.svg' in state_attr('sensor.dark_sky_summary',
+                                                         'entity_picture') %}
           mdi:weather-partlycloudy
-        {% elif is_state_attr('sensor.dark_sky_summary', 'entity_picture',
-                              '/static/images/darksky/weather-cloudy.svg') %}
+        {% elif 'weather-cloudy.svg' in state_attr('sensor.dark_sky_summary',
+                                                   'entity_picture') %}
           mdi:weather-cloudy
         {% else %}
           mdi:tag-text-outline
