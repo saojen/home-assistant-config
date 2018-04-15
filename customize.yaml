@@ -380,10 +380,10 @@ sensor.printer_toner_custom:
     theme: if (state < 10) return 'red'; else return 'default';
 
 #### SONOFF ####
-switch.light_lamp_salon:
+light.lamp_salon:
   icon: mdi:lamp
   friendly_name: Lampa
-switch.light_leds_przedpokoj:
+light.leds_przedpokoj:
   icon: mdi:led-variant-on
   friendly_name: LEDy
 script.sonoffs_upgrade:

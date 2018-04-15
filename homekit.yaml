@@ -6,8 +6,8 @@ filter:
   include_entities:
     - switch.light_bulbs_salon
     - switch.light_leds_salon
-    - switch.light_lamp_salon
-    - switch.light_leds_przedpokoj
+    - light.lamp_salon
+    - light.leds_przedpokoj
     - switch.stacjonarny
     - switch.playstation
     - switch.denon

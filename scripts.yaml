@@ -37,13 +37,14 @@ xiaomi_alarm_stop:
 night_mode:
   sequence:
     - service: script.harmony_tv_off
-    - service: switch.turn_off
+    - service: homeassistant.turn_off
       entity_id:
         - switch.light_leds_salon
         - switch.light_bulbs_salon
-        - switch.light_lamp_salon
+        - light.lamp_salon
         - switch.light_leds_salon
         - switch.stacjonarny
+        - light.leds_przedpokoj
 
 light_away_mode:
   sequence:
@@ -51,8 +52,8 @@ light_away_mode:
       entity_id:
         - switch.light_leds_salon
         - switch.light_bulbs_salon
-        - switch.light_lamp_salon
-        - switch.light_leds_przedpokoj
+        - light.lamp_salon
+        - light.leds_przedpokoj
         - light.gateway_antresola
     - service: script.light_turn_off_for_sure
       data:

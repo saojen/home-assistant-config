@@ -339,7 +339,7 @@ salon:
     - climate.thermostat_salon
     - switch.light_bulbs_salon
     - switch.light_leds_salon
-    - switch.light_lamp_salon
+    - light.lamp_salon
     - input_select.light_scenes_salon
     - switch.denon
     - switch.playstation
@@ -425,7 +425,7 @@ przedpokoj:
   entities:
     - sensor.illumination_przedpokoj
     - binary_sensor.motion_przedpokoj
-    - switch.light_leds_przedpokoj
+    - light.leds_przedpokoj
 
 windows:
   name: Okna

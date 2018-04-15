@@ -26,3 +26,27 @@
   entities:
     - light.bulb_salon_1
     - light.bulb_salon_2
+
+- platform: mqtt
+  name: "Lamp Salon"
+  command_topic: "homeassistant/light/lamp-salon/cmnd/power"
+  state_topic: "homeassistant/light/lamp-salon/stat/POWER"
+  availability_topic: "homeassistant/light/lamp-salon/tele/LWT"
+  payload_available: "Aktywny"
+  payload_not_available: "Nieaktywny"
+  payload_on: "ON"
+  payload_off: "OFF"
+  qos: 1
+  retain: true
+
+- platform: mqtt
+  name: "LEDs Przedpokoj"
+  command_topic: "homeassistant/light/leds-przedpokoj/cmnd/power"
+  state_topic: "homeassistant/light/leds-przedpokoj/stat/POWER"
+  availability_topic: "homeassistant/light/leds-przedpokoj/tele/LWT"
+  payload_available: "Aktywny"
+  payload_not_available: "Nieaktywny"
+  payload_on: "ON"
+  payload_off: "OFF"
+  qos: 1
+  retain: true
