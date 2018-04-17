@@ -109,8 +109,8 @@ mqtt:
 
 xiaomi_aqara:
   gateways:
-    mac: !secret xiaomi_gateway_mac
-    key: !secret xiaomi_gateway_key
+    mac: !secret migateway_mac
+    key: !secret migateway_key
 
 notify:
   - platform: html5

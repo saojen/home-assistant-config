@@ -24,14 +24,14 @@ xiaomi_alarm:
     service: xiaomi.play_ringtone
     data:
       ringtone_id: 2
-      gw_mac: !secret xiaomi_gateway_mac
+      gw_mac: !secret migateway_mac
       ringtone_vol: 10
 
 xiaomi_alarm_stop:
   sequence:
     service: xiaomi.stop_ringtone
     data:
-      gw_mac: !secret xiaomi_gateway_mac
+      gw_mac: !secret migateway_mac
 
 #### LIGHT ####
 night_mode:

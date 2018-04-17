@@ -1,12 +1,12 @@
 - platform: bluetooth_tracker
   interval_seconds: 60
-  consider_home: 180
+  consider_home: 120
   track_new_devices: false
 
 - platform: asuswrt
   host: !secret router_hostname
   username: !secret router_username
-  password: !secret router_password
+  ssh_key: /home/homeassistant/.ssh/id_rsa
   protocol: ssh
 
 - platform: gpslogger

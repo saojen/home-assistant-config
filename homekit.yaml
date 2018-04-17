@@ -4,16 +4,16 @@ filter:
   include_domains:
     - climate
   include_entities:
-    - switch.light_bulbs_salon
-    - switch.light_leds_salon
+    - light.bulbs_salon_homekit
+    - light.leds_salon_homekit
     - light.lamp_salon
     - light.leds_przedpokoj
-    - switch.stacjonarny
-    - switch.playstation
-    - switch.denon
     - light.gateway_antresola
     - light.lightstrip_antek
     - light.lightstrip_sypialnia
+    - switch.stacjonarny
+    - switch.playstation
+    - switch.denon
     - sensor.temperature_antek
     - sensor.temperature_antresola
     - sensor.temperature_gabinet

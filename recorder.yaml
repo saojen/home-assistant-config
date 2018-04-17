@@ -43,6 +43,8 @@ exclude:
     - sensor.sonoff_version_current
     - sensor.sonoff_basic_01_version
     - sensor.sonoff_basic_02_version
+    - light.bulbs_salon_homekit
+    - light.leds_salon_homekit
 include:
   entities:
     - group.family
