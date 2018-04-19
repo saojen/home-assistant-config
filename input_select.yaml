@@ -157,8 +157,9 @@ salon_harmony:
       - 'wyłączony'
       - 'telewizja'
       - 'filmy'
-      - 'muzyka'
       - 'Netflix'
+      - 'YouTube'
+      - 'muzyka'
       - 'PlayStation'
       - 'Xbox'
     icon: mdi:television

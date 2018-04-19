@@ -1731,112 +1731,138 @@
 
 #### HARMONY #####################################################################################
 - id: harmony_turn_off_tv
-  alias: 'Harmony Turn Off TV'
+  alias: "Harmony Turn Off TV"
   trigger:
     platform: state
     entity_id: remote.salon
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'PowerOff' }}"
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.harmony_command
     - service: input_select.select_option
       entity_id: input_select.salon_harmony
       data:
-        option: "wyłączony"
+        option: 'wyłączony'
     - service: input_boolean.turn_off
       entity_id: input_boolean.harmony_command
 
 - id: harmony_starts_telewizja
-  alias: 'Harmony Starts Telewizja'
+  alias: "Harmony Starts Telewizja"
   trigger:
     platform: state
     entity_id: remote.salon
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Telewizja" }}'
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'Telewizja' }}"
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.harmony_command
     - service: input_select.select_option
       entity_id: input_select.salon_harmony
       data:
-        option: "telewizja"
+        option: 'telewizja'
     - service: input_boolean.turn_off
       entity_id: input_boolean.harmony_command
 
 - id: harmony_starts_filmy
-  alias: 'Harmony Starts Filmy'
+  alias: "Harmony Starts Filmy"
   trigger:
     platform: state
     entity_id: remote.salon
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Filmy" }}'
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'Filmy' }}"
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.harmony_command
     - service: input_select.select_option
       entity_id: input_select.salon_harmony
       data:
-        option: "filmy"
+        option: 'filmy'
     - service: input_boolean.turn_off
       entity_id: input_boolean.harmony_command
 
 - id: harmony_starts_muzyka
-  alias: 'Harmony Starts Muzyka'
+  alias: "Harmony Starts Muzyka"
   trigger:
     platform: state
     entity_id: remote.salon
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Muzyka" }}'
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'Muzyka' }}"
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.harmony_command
     - service: input_select.select_option
       entity_id: input_select.salon_harmony
       data:
-        option: "muzyka"
+        option: 'muzyka'
     - service: input_boolean.turn_off
       entity_id: input_boolean.harmony_command
 
 - id: harmony_starts_netflix
-  alias: 'Harmony Starts Netflix'
+  alias: "Harmony Starts Netflix"
   trigger:
     platform: state
     entity_id: remote.salon
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Netflix" }}'
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'Netflix' }}"
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.harmony_command
     - service: input_select.select_option
       entity_id: input_select.salon_harmony
       data:
-        option: "Netflix"
+        option: 'Netflix'
     - service: input_boolean.turn_off
       entity_id: input_boolean.harmony_command
+    - service: mqtt.publish
+      data:
+        topic: 'homeassistant/androidtv/run'
+        payload: 'Netflix'
 
-- id: harmony_starts_playstation
-  alias: 'Harmony Starts PlayStation'
+- id: harmony_starts_youtube
+  alias: "Harmony Starts YouTube"
   trigger:
     platform: state
     entity_id: remote.salon
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "PlayStation" }}'
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'YouTube' }}"
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.harmony_command
     - service: input_select.select_option
       entity_id: input_select.salon_harmony
       data:
-        option: "PlayStation"
+        option: 'YouTube'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.harmony_command
+    - service: mqtt.publish
+      data:
+        topic: 'homeassistant/androidtv/run'
+        payload: 'YouTube'
+
+- id: harmony_starts_playstation
+  alias: "Harmony Starts PlayStation"
+  trigger:
+    platform: state
+    entity_id: remote.salon
+  condition:
+    condition: template
+    value_template: "{{ trigger.to_state.attributes.current_activity == 'PlayStation' }}"
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.harmony_command
+    - service: input_select.select_option
+      entity_id: input_select.salon_harmony
+      data:
+        option: 'PlayStation'
     - condition: template
-      value_template: '{{ trigger.from_state.state == "PowerOff" }}'
+      value_template: "{{ trigger.from_state.state == 'PowerOff' }}"
     - service: switch.turn_on
       entity_id: switch.playstation
     - service: input_boolean.turn_off
@@ -1929,6 +1955,20 @@
   action:
     service: script.turn_on
     entity_id: script.harmony_netflix
+
+- id: hass_starts_youtube
+  alias: "HASS Starts YouTube"
+  trigger:
+    platform: state
+    entity_id: input_select.salon_harmony
+    to: 'YouTube'
+  condition:
+    condition: state
+    entity_id: input_boolean.harmony_command
+    state: 'off'
+  action:
+    service: script.turn_on
+    entity_id: script.harmony_youtube
 
 - id: hass_starts_playstation
   alias: 'HASS Starts PlayStation'

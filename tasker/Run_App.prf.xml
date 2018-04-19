@@ -1,0 +1,98 @@
+<TaskerData sr="" dvi="1" tv="5.1.7b">
+	<Profile sr="prof4" ve="2">
+		<cdate>1524070221925</cdate>
+		<edate>1524159335179</edate>
+		<id>4</id>
+		<mid0>5</mid0>
+		<nme>Run App</nme>
+		<Event sr="con0" ve="2">
+			<code>1804263597</code>
+			<pri>0</pri>
+			<Bundle sr="arg0">
+				<Vals sr="val">
+					<com.twofortyfouram.locale.intent.extra.BLURB>Raspberry Pi - mqtt_broker_host : homeassistant/androidtv/run : appname : action :  : </com.twofortyfouram.locale.intent.extra.BLURB>
+					<com.twofortyfouram.locale.intent.extra.BLURB-type>java.lang.String</com.twofortyfouram.locale.intent.extra.BLURB-type>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARATOR>0</com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARATOR>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARATOR-type>java.lang.Integer</com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARATOR-type>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARE_TO></com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARE_TO>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARE_TO-type>java.lang.String</com.twofortyfouram.locale.intent.extra.EXTRA_MESSAGE_COMPARE_TO-type>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARATOR>0</com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARATOR>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARATOR-type>java.lang.Integer</com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARATOR-type>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARE_TO></com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARE_TO>
+					<com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARE_TO-type>java.lang.String</com.twofortyfouram.locale.intent.extra.EXTRA_TOPIC_COMPARE_TO-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID>1</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID-type>java.lang.Long</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE>appname</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC>homeassistant/androidtv/run</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC_VAR>action</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC_VAR>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC_VAR-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC_VAR-type>
+					<in.dc297.mqttclpro.tasker.activity.intent.QUERY_OPERATION>in.dc297.mqttclpro.tasker.activity.intent.MESSAGE_ARRIVED</in.dc297.mqttclpro.tasker.activity.intent.QUERY_OPERATION>
+					<in.dc297.mqttclpro.tasker.activity.intent.QUERY_OPERATION-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.intent.QUERY_OPERATION-type>
+					<net.dinglisch.android.tasker.subbundled>true</net.dinglisch.android.tasker.subbundled>
+					<net.dinglisch.android.tasker.subbundled-type>java.lang.Boolean</net.dinglisch.android.tasker.subbundled-type>
+				</Vals>
+			</Bundle>
+			<Str sr="arg1" ve="3">in.dc297.mqttclpro</Str>
+			<Str sr="arg2" ve="3">in.dc297.mqttclpro.tasker.activity.ConfigureTaskerEventActivity</Str>
+		</Event>
+	</Profile>
+	<Task sr="task5">
+		<cdate>1524070237740</cdate>
+		<edate>1524158649347</edate>
+		<id>5</id>
+		<Action sr="act0" ve="7">
+			<code>25</code>
+			<Int sr="arg0" val="0"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>20</code>
+			<App sr="arg0">
+				<appClass>com.netflix.ninja.MainActivity</appClass>
+				<appPkg>com.netflix.ninja</appPkg>
+				<label>Netflix</label>
+			</App>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<ConditionList sr="if">
+				<bool0>And</bool0>
+				<Condition sr="c0" ve="3">
+					<lhs>%action</lhs>
+					<op>4</op>
+					<rhs>run</rhs>
+				</Condition>
+				<Condition sr="c1" ve="3">
+					<lhs>%appname</lhs>
+					<op>4</op>
+					<rhs>Netflix</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>20</code>
+			<App sr="arg0">
+				<appClass>com.google.android.apps.youtube.tv.cobalt.activity.ShellActivity</appClass>
+				<appPkg>com.google.android.youtube.tv</appPkg>
+				<label>YouTube</label>
+			</App>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<ConditionList sr="if">
+				<bool0>And</bool0>
+				<Condition sr="c0" ve="3">
+					<lhs>%action</lhs>
+					<op>4</op>
+					<rhs>run</rhs>
+				</Condition>
+				<Condition sr="c1" ve="3">
+					<lhs>%appname</lhs>
+					<op>4</op>
+					<rhs>YouTube</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+	</Task>
+</TaskerData>

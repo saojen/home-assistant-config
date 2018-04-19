@@ -27,4 +27,5 @@ secrets.yaml
 travis_secrets.yaml
 known_devices.yaml
 WIP*.py
+!/tasker/*.xml
 !/.gitignore

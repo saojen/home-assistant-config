@@ -1,0 +1,51 @@
+<TaskerData sr="" dvi="1" tv="5.1.7b">
+	<Profile sr="prof2" ve="2">
+		<cdate>1510179625715</cdate>
+		<clp>true</clp>
+		<edate>1524159374459</edate>
+		<id>2</id>
+		<mid0>3</mid0>
+		<nme>Send Activity to HASS</nme>
+		<Event sr="con0" ve="2">
+			<code>3050</code>
+			<pri>0</pri>
+			<Str sr="arg0" ve="3">%WIN</Str>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="0"/>
+		</Event>
+	</Profile>
+	<Task sr="task3">
+		<cdate>1510179643248</cdate>
+		<edate>1524089055253</edate>
+		<id>3</id>
+		<pri>100</pri>
+		<Action sr="act0" ve="7">
+			<code>1491316329</code>
+			<Bundle sr="arg0">
+				<Vals sr="val">
+					<com.twofortyfouram.locale.intent.extra.BLURB>Raspberry Pi - mqtt_broker_host : homeassistant/sensor/androidtv-activity : %WIN : 0 : false</com.twofortyfouram.locale.intent.extra.BLURB>
+					<com.twofortyfouram.locale.intent.extra.BLURB-type>java.lang.String</com.twofortyfouram.locale.intent.extra.BLURB-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID>1</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID-type>java.lang.Long</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_BROKER_ID-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE>%WIN</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_QOS>0</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_QOS>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_QOS-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_QOS-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_RETAINED>false</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_RETAINED>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_RETAINED-type>java.lang.Boolean</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_RETAINED-type>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC>homeassistant/sensor/androidtv-activity</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC>
+					<in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC-type>
+					<in.dc297.mqttclpro.tasker.activity.intent.ACTION_OPERATION>in.dc297.mqttclpro.tasker.activity.Intent.MQTT_PUBLISH_ACTION</in.dc297.mqttclpro.tasker.activity.intent.ACTION_OPERATION>
+					<in.dc297.mqttclpro.tasker.activity.intent.ACTION_OPERATION-type>java.lang.String</in.dc297.mqttclpro.tasker.activity.intent.ACTION_OPERATION-type>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_TOPIC in.dc297.mqttclpro.tasker.activity.Intent.EXTRA_MESSAGE</net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>java.lang.String</net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>
+					<net.dinglisch.android.tasker.subbundled>true</net.dinglisch.android.tasker.subbundled>
+					<net.dinglisch.android.tasker.subbundled-type>java.lang.Boolean</net.dinglisch.android.tasker.subbundled-type>
+				</Vals>
+			</Bundle>
+			<Str sr="arg1" ve="3">in.dc297.mqttclpro</Str>
+			<Str sr="arg2" ve="3">in.dc297.mqttclpro.tasker.activity.ActionEditActivity</Str>
+			<Int sr="arg3" val="0"/>
+		</Action>
+	</Task>
+</TaskerData>

@@ -8,6 +8,10 @@
   state_topic: "homeassistant/switch/light-leds-przedpokoj/stat/STATUS2"
   value_template: "{{ value_json['StatusFWR'].Version }}"
 
+- platform: mqtt
+  name: AndroidTV Activity
+  state_topic: "homeassistant/sensor/androidtv-activity"
+
 - platform: rest
   name: Sonoff Version Current
   resource: https://api.github.com/repos/arendst/Sonoff-Tasmota/releases/latest

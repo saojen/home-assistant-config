@@ -23,7 +23,7 @@
 * Logitech Harmony Ultimate [remote]
 * Denon AVR-X2100W [AV receiver]
 * PlayStation 4 Pro
-* Xiaomi Mi Box 4K [AndroidTV box by [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm)]
+* Xiaomi Mi Box 4K [AndroidTV box by [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm) and [MQTT Client](https://play.google.com/store/apps/details?id=in.dc297.mqttclpro)]
 * Dune BD Prime 3.0 [network media player by AppDaemon script]
 * Synology DS110j [NAS]
 * Brother HL-L2340D
