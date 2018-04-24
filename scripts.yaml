@@ -1,5 +1,5 @@
 reboot_router:
-  alias: Restart routera
+  alias: 'Restart routera'
   sequence:
     service: shell_command.reboot_router
 
@@ -8,14 +8,14 @@ sonoffs_check_version:
   sequence:
     service: mqtt.publish
     data:
-      topic: "homeassistant/switch/sonoffs/cmnd/status"
+      topic: 'homeassistant/switch/sonoffs/cmnd/status'
       payload: 2
 
 sonoffs_upgrade:
   sequence:
     service: mqtt.publish
     data:
-      topic: "homeassistant/switch/sonoffs/cmnd/upgrade"
+      topic: 'homeassistant/switch/sonoffs/cmnd/upgrade'
       payload: 1
 
 #### XIAOMI GATEWAY ALARM ####
@@ -75,7 +75,7 @@ light_turn_off_for_sure:
 
 #### HEATING ####
 heating_fast_warm_up:
-  alias: Szybkie dogrzanie
+  alias: 'Szybkie dogrzanie'
   sequence:
     - condition: state
       entity_id: input_boolean.heating_season

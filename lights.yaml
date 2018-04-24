@@ -1,22 +1,22 @@
 - platform: yeelight
   devices:
     192.168.2.245:
-      name: bulb salon 1
+      name: 'bulb salon 1'
       transition: 500
       save_on_change: false
       use_music_mode: false
     192.168.2.250:
-      name: bulb salon 2
+      name: 'bulb salon 2'
       transition: 500
       save_on_change: false
       use_music_mode: false
     192.168.2.220:
-      name: lightstrip sypialnia
+      name: 'lightstrip sypialnia'
       transition: 500
       save_on_change: false
       use_music_mode: false
     192.168.2.225:
-      name: lightstrip antek
+      name: 'lightstrip antek'
       transition: 500
       save_on_change: false
       use_music_mode: false
@@ -28,33 +28,33 @@
     - light.bulb_salon_2
 
 - platform: mqtt
-  name: "Lamp Salon"
-  command_topic: "homeassistant/light/lamp-salon/cmnd/power"
-  state_topic: "homeassistant/light/lamp-salon/stat/POWER"
-  availability_topic: "homeassistant/light/lamp-salon/tele/LWT"
-  payload_available: "Aktywny"
-  payload_not_available: "Nieaktywny"
-  payload_on: "ON"
-  payload_off: "OFF"
+  name: 'Lamp Salon'
+  command_topic: 'homeassistant/light/lamp-salon/cmnd/power'
+  state_topic: 'homeassistant/light/lamp-salon/stat/POWER'
+  availability_topic: 'homeassistant/light/lamp-salon/tele/LWT'
+  payload_available: 'Aktywny'
+  payload_not_available: 'Nieaktywny'
+  payload_on: 'ON'
+  payload_off: 'OFF'
   qos: 1
   retain: true
 
 - platform: mqtt
-  name: "LEDs Przedpokoj"
-  command_topic: "homeassistant/light/leds-przedpokoj/cmnd/power"
-  state_topic: "homeassistant/light/leds-przedpokoj/stat/POWER"
-  availability_topic: "homeassistant/light/leds-przedpokoj/tele/LWT"
-  payload_available: "Aktywny"
-  payload_not_available: "Nieaktywny"
-  payload_on: "ON"
-  payload_off: "OFF"
+  name: 'LEDs Przedpokoj'
+  command_topic: 'homeassistant/light/leds-przedpokoj/cmnd/power'
+  state_topic: 'homeassistant/light/leds-przedpokoj/stat/POWER'
+  availability_topic: 'homeassistant/light/leds-przedpokoj/tele/LWT'
+  payload_available: 'Aktywny'
+  payload_not_available: 'Nieaktywny'
+  payload_on: 'ON'
+  payload_off: 'OFF'
   qos: 1
   retain: true
 
 - platform: template
   lights:
     bulbs_salon_homekit:
-      friendly_name: "Żarówki"
+      friendly_name: 'Żarówki'
       value_template: "{{ is_state('switch.light_bulbs_salon', 'on') }}"
       level_template: >-
         {% if state_attr('light.bulbs_salon', 'brightness') %}
@@ -76,10 +76,10 @@
         service: light.turn_on
         entity_id: light.bulbs_salon
         data_template:
-          brightness: "{{ brightness }}"
+          brightness: '{{ brightness }}'
 
     leds_salon_homekit:
-      friendly_name: "LEDy"
+      friendly_name: 'LEDy'
       value_template: "{{ is_state('switch.light_leds_salon', 'on') }}"
       turn_on:
         service: switch.turn_on

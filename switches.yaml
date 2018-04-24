@@ -1,5 +1,5 @@
 - platform: wake_on_lan
-  name: stacjonarny
+  name: 'stacjonarny'
   host: !secret desktop_hostname
   mac_address: !secret desktop_mac_address
   broadcast_address: 255.255.255.255
@@ -9,7 +9,7 @@
 
 - platform: flux
   lights: light.bulbs_salon
-  name: Flux
+  name: 'Flux'
   start_colortemp: 4400
   sunset_colortemp: 3800
   stop_colortemp: 3200
@@ -19,7 +19,7 @@
 - platform: template
   switches:
     denon:
-      friendly_name: Amplituner
+      friendly_name: 'Amplituner'
       value_template: >-
         {% if is_state('media_player.denon', 'on')
            or is_state('media_player.denon', 'playing') %}
@@ -36,7 +36,7 @@
         service: media_player.turn_off
         entity_id: media_player.denon
     playstation:
-      friendly_name: PlayStation
+      friendly_name: 'PlayStation'
       value_template: >-
         {% if is_state('media_player.playstation', 'on')
            or is_state('media_player.playstation', 'playing')

@@ -1,15 +1,15 @@
 heating_season:
-  name: Sezon grzewczy
+  name: 'Sezon grzewczy'
   icon: mdi:weather-snowy-rainy
 heating_salon_kuchnia_night:
 heating_night:
 heating_airing:
-  name: Przewietrzanie
+  name: 'Przewietrzanie'
   icon: mdi:weather-windy
 edyta_far_from_home:
 maciek_far_from_home:
 away_mode:
-  name: Poza domem
+  name: 'Poza domem'
   icon: mdi:home-outline
 antresola_lamp_motion_on:
 salon_lamp_motion_on:
@@ -23,5 +23,5 @@ gaming_timer:
 harmony_command:
   initial: 'off'
 guests:
-  name: Goście
+  name: 'Goście'
   icon: mdi:account-multiple-outline

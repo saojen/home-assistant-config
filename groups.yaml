@@ -1,5 +1,5 @@
 default_view:
-  name: Dom
+  name: 'Dom'
   view: yes
   icon: mdi:home
   entities:
@@ -16,7 +16,7 @@ default_view:
     - group.lazienka
 
 media players:
-  name: Media
+  name: 'Media'
   view: yes
   icon: mdi:cast-connected
   entities:
@@ -25,7 +25,7 @@ media players:
     - group.playstation
 
 network:
-  name: Sieć
+  name: 'Sieć'
   view: yes
   icon: mdi:ethernet
   entities:
@@ -38,7 +38,7 @@ network:
     - group.zwave_devices
 
 energy:
-  name: Energia
+  name: 'Energia'
   view: yes
   icon: mdi:power-plug
   entities:
@@ -51,7 +51,7 @@ energy:
     - group.batteries_motion_sensors
 
 climate:
-  name: Klimat
+  name: 'Klimat'
   icon: mdi:cloud
   view: yes
   entities:
@@ -60,7 +60,7 @@ climate:
     - group.weather_graphs_02
 
 misc:
-  name: Różne
+  name: 'Różne'
   view: yes
   icon: mdi:settings
   entities:
@@ -70,7 +70,7 @@ misc:
     - group.scripts
 
 weather:
-  name: Pogoda
+  name: 'Pogoda'
   entities:
     - sensor.dark_sky_summary_custom
     - sensor.temperature_outdoor
@@ -85,13 +85,13 @@ weather:
     - sensor.humidity_indoor
 
 weather graphs 01:
-  name: Wykresy
+  name: 'Wykresy'
   entities:
     - history_graph.temperatura
     - history_graph.wilgotnosc
 
 weather graphs 02:
-  name: Wykresy
+  name: 'Wykresy'
   entities:
     - history_graph.cisnienie
     - history_graph.predkosc_wiatru
@@ -106,7 +106,7 @@ playstation:
   entities: media_player.playstation
 
 family:
-  name: Rodzina
+  name: 'Rodzina'
   entities:
     - sensor.edyta_presence
     - sensor.maciek_presence
@@ -117,7 +117,7 @@ family:
     - sensor.emil_presence
 
 peoples:
-  name: Ludzie
+  name: 'Ludzie'
   entities:
     - device_tracker.maciek
     - device_tracker.maciek_gps_bt
@@ -136,14 +136,14 @@ peoples:
     - sensor.denon_presence
 
 guests:
-  name: Goście
+  name: 'Goście'
   entities:
     - device_tracker.agnieszka
     - device_tracker.emil
     - device_tracker.grazyna
 
 wire devices:
-  name: Urządzenia przewodowe
+  name: 'Urządzenia przewodowe'
   control: hidden
   entities:
     - binary_sensor.modem_status
@@ -158,7 +158,7 @@ wire devices:
     - binary_sensor.stacjonarny_status
 
 wireless devices:
-  name: Urządzenia bezprzewodowe
+  name: 'Urządzenia bezprzewodowe'
   entities:
     - binary_sensor.migateway_status
     - binary_sensor.harmonyhub_status
@@ -175,7 +175,7 @@ wireless devices:
     - binary_sensor.inkbook_status
 
 iot devices:
-  name: Urządzenia IoT
+  name: 'Urządzenia IoT'
   entities:
     - binary_sensor.sonoff_switch_lamp_status
     - binary_sensor.sonoff_switch_leds_status
@@ -186,7 +186,7 @@ iot devices:
     - binary_sensor.yeelight_lightstrip_sypialnia_status
 
 zwave devices:
-  name: Urządzenia Z-Wave
+  name: 'Urządzenia Z-Wave'
   entities:
     - zwave.aeotec_zw090_zstick_gen5
     - zwave.light_salon
@@ -198,7 +198,7 @@ zwave devices:
     - zwave.thermostat_lazienka
 
 ups:
-  name: UPS
+  name: 'UPS'
   entities:
     - sensor.ups_status
     - sensor.ups_battery_charge
@@ -208,14 +208,14 @@ ups:
     - sensor.ups_input_voltage
 
 internet:
-  name: Internet
+  name: 'Internet'
   entities:
     - sensor.speedtest_download
     - sensor.speedtest_upload
     - sensor.speedtest_ping
 
 heating settings:
-  name: Ustawienie ogrzewania
+  name: 'Ustawienie ogrzewania'
   control: hidden
   entities:
     - input_boolean.heating_season
@@ -225,7 +225,7 @@ heating settings:
     - input_boolean.guests
 
 heating temps:
-  name: Temperatury ogrzewania
+  name: 'Temperatury ogrzewania'
   control: hidden
   entities:
     - input_select.heating_temp_bedroom_day
@@ -237,7 +237,7 @@ heating temps:
     - input_select.heating_temp_eco
 
 heating hours:
-  name: Godziny ogrzewania
+  name: 'Godziny ogrzewania'
   control: hidden
   entities:
     - input_select.heating_night_start
@@ -246,7 +246,7 @@ heating hours:
     - input_select.heating_night_end_weekend
 
 scripts:
-  name: Skrypty i ustawienia
+  name: 'Skrypty i ustawienia'
   control: hidden
   entities:
     - script.reboot_router
@@ -254,7 +254,7 @@ scripts:
     - input_select.log_level
 
 batteries thermostats:
-  name: Baterie termostatów
+  name: 'Baterie termostatów'
   entities:
     - sensor.battery_thermostat_salon
     - sensor.battery_thermostat_kuchnia
@@ -264,14 +264,14 @@ batteries thermostats:
     - sensor.battery_thermostat_lazienka
 
 batteries switches:
-  name: Baterie przełączników
+  name: 'Baterie przełączników'
   entities:
     - sensor.battery_switch_light_salon_1
     - sensor.battery_switch_light_salon_2
     - sensor.battery_switch_light_antek
 
 batteries temp sensors:
-  name: Baterie sensorów temperatury
+  name: 'Baterie sensorów temperatury'
   entities:
     - sensor.battery_temp_humi_sensor_salon
     - sensor.battery_temp_humi_sensor_pracownia
@@ -284,7 +284,7 @@ batteries temp sensors:
     - sensor.battery_temp_humi_sensor_outdoor
 
 batteries motion sensors:
-  name: Baterie sensorów ruchu
+  name: 'Baterie sensorów ruchu'
   entities:
     - sensor.battery_body_sensor_przedpokoj
     - sensor.battery_body_sensor_salon_1
@@ -295,21 +295,21 @@ batteries motion sensors:
     - sensor.battery_body_sensor_sypialnia
 
 batteries windows sensors:
-  name: Baterie sensorów okien/drzwi
+  name: 'Baterie sensorów okien/drzwi'
   entities:
     - sensor.battery_window_sensor_kuchnia
     - sensor.battery_door_sensor_pracownia
     - sensor.battery_door_sensor_sypialnia
 
 energy consumption:
-  name: Miesięczne zużycie energii
+  name: 'Miesięczne zużycie energii'
   entities:
     - sensor.light_bulbs_salon_energy
     - sensor.light_leds_salon_energy
     - history_graph.zuzycie_energii
 
 raspberry:
-  name: Raspberry Pi
+  name: 'Raspberry Pi'
   entities:
     - sensor.processor_use
     - sensor.raspberry_cpu_temp
@@ -321,7 +321,7 @@ raspberry:
     - sensor.ssl_certificate_expiry
 
 printer:
-  name: Drukarka
+  name: 'Drukarka'
   entities:
     - sensor.printer_status_custom
     - sensor.printer_counter_custom
@@ -329,7 +329,7 @@ printer:
     - sensor.printer_toner_custom
 
 salon:
-  name: Salon
+  name: 'Salon'
   control: hidden
   entities:
     - sensor.temperature_salon
@@ -346,7 +346,7 @@ salon:
     - input_select.salon_harmony
 
 kuchnia:
-  name: Kuchnia
+  name: 'Kuchnia'
   control: hidden
   entities:
     - sensor.temperature_kuchnia
@@ -355,14 +355,14 @@ kuchnia:
     - climate.thermostat_kuchnia
 
 goscinny:
-  name: Pokój gościnny
+  name: 'Pokój gościnny'
   control: hidden
   entities:
     - sensor.temperature_goscinny
     - sensor.humidity_goscinny
 
 antresola:
-  name: Antresola
+  name: 'Antresola'
   control: hidden
   entities:
   - sensor.temperature_antresola
@@ -373,7 +373,7 @@ antresola:
   - light.gateway_antresola
 
 gabinet:
-  name: Gabinet
+  name: 'Gabinet'
   control: hidden
   entities:
   - sensor.temperature_gabinet
@@ -381,7 +381,7 @@ gabinet:
   - switch.stacjonarny
 
 pokoj_antek:
-  name: Pokój Antka
+  name: 'Pokój Antka'
   control: hidden
   entities:
     - sensor.temperature_antek
@@ -392,7 +392,7 @@ pokoj_antek:
     - light.lightstrip_antek
 
 sypialnia:
-  name: Sypialnia
+  name: 'Sypialnia'
   control: hidden
   entities:
     - sensor.temperature_sypialnia
@@ -404,7 +404,7 @@ sypialnia:
     - light.lightstrip_sypialnia
 
 pracownia:
-  name: Pracownia
+  name: 'Pracownia'
   control: hidden
   entities:
     - sensor.temperature_pracownia
@@ -412,7 +412,7 @@ pracownia:
     - binary_sensor.balcony_door_pracownia
 
 lazienka:
-  name: Łazienka
+  name: 'Łazienka'
   control: hidden
   entities:
     - sensor.temperature_lazienka
@@ -420,7 +420,7 @@ lazienka:
     - climate.thermostat_lazienka
 
 przedpokoj:
-  name: Przedpokój
+  name: 'Przedpokój'
   control: hidden
   entities:
     - sensor.illumination_przedpokoj
@@ -428,7 +428,7 @@ przedpokoj:
     - light.leds_przedpokoj
 
 windows:
-  name: Okna
+  name: 'Okna'
   entities:
     - binary_sensor.balcony_door_sypialnia
     - binary_sensor.window_kuchnia

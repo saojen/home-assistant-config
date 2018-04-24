@@ -1,5 +1,5 @@
 power_consumption:
-  name: Zużycie energii
+  name: 'Zużycie energii'
   entities:
     - sensor.light_leds_salon_power
     - sensor.light_bulbs_salon_power
@@ -7,7 +7,7 @@ power_consumption:
   refresh: 60
 
 temperature:
-  name: Temperatura
+  name: 'Temperatura'
   entities:
     - sensor.temperature_indoor
     - sensor.temperature_outdoor
@@ -15,7 +15,7 @@ temperature:
   refresh: 60
 
 humidity:
-  name: Wilgotność
+  name: 'Wilgotność'
   entities:
     - sensor.humidity_indoor
     - sensor.humidity_outdoor
@@ -23,13 +23,13 @@ humidity:
   refresh: 60
 
 pressure:
-  name: Ciśnienie
+  name: 'Ciśnienie'
   entities: sensor.pressure_outdoor
   hours_to_show: 48
   refresh: 60
 
 wind_speed:
-  name: Prędkość wiatru
+  name: 'Prędkość wiatru'
   entities: sensor.dark_sky_wind_speed
   hours_to_show: 48
   refresh: 60

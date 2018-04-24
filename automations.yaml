@@ -25,11 +25,11 @@
     - service: input_number.set_value
       data_template:
         entity_id: input_number.gaming_end_hours
-        value: '{{ now().strftime("%H") }}'
+        value: "{{ now().strftime('%H') }}"
     - service: input_number.set_value
       data_template:
         entity_id: input_number.gaming_end_minutes
-        value: '{{ now().strftime("%M") }}'
+        value: "{{ now().strftime('%M') }}"
 
 # koniec grania
 - id: end_games
@@ -42,9 +42,9 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{ (now().strftime("%H") | int) == (states.input_number.gaming_end_hours.state | int + 1) }}'
+        value_template: "{{ (now().strftime('%H') | int) == (states.input_number.gaming_end_hours.state | int + 1) }}"
       - condition: template
-        value_template: '{{ (now().strftime("%M") | int) == (states.input_number.gaming_end_minutes.state | int) }}'
+        value_template: "{{ (now().strftime('%M') | int) == (states.input_number.gaming_end_minutes.state | int) }}"
       - condition: state
         entity_id: input_boolean.gaming_timer
         state: 'on'
@@ -81,12 +81,16 @@
     seconds: 0
   condition:
     condition: template
-    value_template: "{{ now().date().day == 1 }}"
+    value_template: '{{ now().date().day == 1 }}'
   action:
     - service: zwave.reset_node_meters
-      data: {"node_id":13,"instance":1}
+      data:
+        node_id: 13
+        instance: 1
     - service: zwave.reset_node_meters
-      data: {"node_id":13,"instance":2}
+      data:
+        node_id: 13
+        instance: 2
 ################################################################################
 
 #### PURGE RECORDER DATABASE ###################################################
@@ -99,7 +103,8 @@
     seconds: 0
   action:
     service: recorder.purge
-    data: {"keep_days":4}
+    data:
+      keep_days: 4
 ################################################################################
 
 #### NOTIFICATIONS #############################################################
@@ -108,12 +113,12 @@
   alias: 'Notification SSL Cert Expiry'
   trigger:
     platform: template
-    value_template: "{{ (states.sensor.ssl_certificate_expiry.state | int == 30) or (states.sensor.ssl_certificate_expiry.state | int == 20) or (states.sensor.ssl_certificate_expiry.state | int == 10) }}"
+    value_template: '{{ (states.sensor.ssl_certificate_expiry.state | int == 30) or (states.sensor.ssl_certificate_expiry.state | int == 20) or (states.sensor.ssl_certificate_expiry.state | int == 10) }}'
   action:
     service: notify.html5_oneplus
     data_template:
       title: 'Wygasa certyfikat SSL'
-      message: "Za {{ states.sensor.ssl_certificate_expiry.state }} dni wygaśnie certyfikat SSL serwera WWW."
+      message: 'Za {{ states.sensor.ssl_certificate_expiry.state }} dni wygaśnie certyfikat SSL serwera WWW.'
     data:
       data:
         tag: 'notification-ssl-cert'
@@ -153,16 +158,16 @@
   alias: 'Notification Custom Update Available'
   trigger:
     platform: template
-    value_template: "{{ states.sensor.ha_version_current.state != states.sensor.ha_version_installed.state }}"
+    value_template: '{{ states.sensor.ha_version_current.state != states.sensor.ha_version_installed.state }}'
   action:
     service: notify.html5_oneplus
     data_template:
       title: 'Aktualizacja Home Assistant'
-      message: "Dostępna jest aktualizacja do wersji {{ states.sensor.ha_version_current.state }} dla Home Assistant."
+      message: 'Dostępna jest aktualizacja do wersji {{ states.sensor.ha_version_current.state }} dla Home Assistant.'
     data:
       data:
         tag: 'notification-hass-update'
-        url: "https://home-assistant.io/blog/"
+        url: 'https://home-assistant.io/blog/'
 
 # powiadomienie o aktualizacji Sonoffów
 - id: notification_sonoff_update_available
@@ -181,11 +186,11 @@
     - service: notify.html5_oneplus
       data_template:
         title: 'Aktualizacja Sonoff-Tasmota'
-        message: "Dostępna jest aktualizacja do wersji {{ states.sensor.sonoff_version_current.state }} dla Sonoff-Tasmota."
+        message: 'Dostępna jest aktualizacja do wersji {{ states.sensor.sonoff_version_current.state }} dla Sonoff-Tasmota.'
       data:
         data:
           tag: 'notification-sonoff-update'
-          url: "https://github.com/arendst/Sonoff-Tasmota/releases"
+          url: 'https://github.com/arendst/Sonoff-Tasmota/releases'
 
 # powiadomienie jak jest ruch i nikogo w domu
 - id: notification_motion_when_away_mode
@@ -462,7 +467,7 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_end.state }}'
+        value_template: "{{ now().strftime('%H:%M') == states.input_select.heating_night_end.state }}"
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'on'
@@ -486,7 +491,7 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_start.state }}'
+        value_template: "{{ now().strftime('%H:%M') == states.input_select.heating_night_start.state }}"
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'on'
@@ -510,7 +515,7 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_end_weekend.state }}'
+        value_template: "{{ now().strftime('%H:%M') == states.input_select.heating_night_end_weekend.state }}"
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'off'
@@ -534,7 +539,7 @@
     condition: and
     conditions:
       - condition: template
-        value_template: '{{ now().strftime("%H:%M") == states.input_select.heating_night_start_weekend.state }}'
+        value_template: "{{ now().strftime('%H:%M') == states.input_select.heating_night_start_weekend.state }}"
       - condition: state
         entity_id: binary_sensor.workday_sensor
         state: 'off'
@@ -1294,16 +1299,13 @@
   action:
     service: switch.flux_update
 
-# Scena oświetlenia salonu film po włączeniu Netflix/Showmax/Youtube/Dune/gry na PS
+# Scena oświetlenia salonu film po włączeniu Netflix/Youtube/Dune/gry na PS
 - id: light_scene_film
   alias: 'Light Scene Film'
   trigger:
     - platform: state
       entity_id: sensor.androidtv_activity
       to: 'Netflix'
-    - platform: state
-      entity_id: sensor.androidtv_activity
-      to: 'ShowMax'
     - platform: state
       entity_id: sensor.androidtv_activity
       to: 'YouTube'
@@ -1343,14 +1345,20 @@
         seconds: 30
     - platform: state
       entity_id: sensor.androidtv_activity
-      from: 'ShowMax'
+      from: 'YouTube'
       to: 'Ekran główny'
       for:
         seconds: 30
     - platform: state
       entity_id: sensor.androidtv_activity
+      from: 'Netflix'
+      to: 'Reebot'
+      for:
+        seconds: 30
+    - platform: state
+      entity_id: sensor.androidtv_activity
       from: 'YouTube'
-      to: 'Ekran główny'
+      to: 'Reboot'
       for:
         seconds: 30
     - platform: state

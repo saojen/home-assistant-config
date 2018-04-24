@@ -1,5 +1,5 @@
 heating_night_start:
-  name: Początek nocnego obniżenia temperatury
+  name: 'Początek nocnego obniżenia temperatury'
   options:
     - '21:30'
     - '22:00'
@@ -9,7 +9,7 @@ heating_night_start:
   icon: mdi:clock-start
 
 heating_night_end:
-  name: Koniec nocnego obniżenia temperatury
+  name: 'Koniec nocnego obniżenia temperatury'
   options:
     - '04:30'
     - '05:00'
@@ -22,7 +22,7 @@ heating_night_end:
   icon: mdi:clock-end
 
 heating_night_start_weekend:
-  name: Początek nocnego obniżenia temperatury w weekendy
+  name: 'Początek nocnego obniżenia temperatury w weekendy'
   options:
     - '21:30'
     - '22:00'
@@ -32,7 +32,7 @@ heating_night_start_weekend:
   icon: mdi:clock-start
 
 heating_night_end_weekend:
-  name: Koniec nocnego obiżenia temperatury w weekendy
+  name: 'Koniec nocnego obiżenia temperatury w weekendy'
   options:
     - '05:00'
     - '05:30'
@@ -44,7 +44,7 @@ heating_night_end_weekend:
   icon: mdi:clock-end
 
 heating_temp_day:
-  name: Temperatura w innych pomieszczeniach w dzień
+  name: 'Temperatura w innych pomieszczeniach w dzień'
   options:
     - '16'
     - '17'
@@ -56,7 +56,7 @@ heating_temp_day:
   icon: mdi:temperature-celsius
 
 heating_temp_night:
-  name: Temperatura w innych pomieszczeniach w nocy
+  name: 'Temperatura w innych pomieszczeniach w nocy'
   options:
     - '16'
     - '17'
@@ -68,7 +68,7 @@ heating_temp_night:
   icon: mdi:temperature-celsius
 
 heating_temp_bedroom_day:
-  name: Temperatura w sypialniach w dzień
+  name: 'Temperatura w sypialniach w dzień'
   options:
     - '16'
     - '17'
@@ -80,7 +80,7 @@ heating_temp_bedroom_day:
   icon: mdi:temperature-celsius
 
 heating_temp_bedroom_night:
-  name: Temperatura w sypialniach w nocy
+  name: 'Temperatura w sypialniach w nocy'
   options:
     - '16'
     - '17'
@@ -92,7 +92,7 @@ heating_temp_bedroom_night:
   icon: mdi:temperature-celsius
 
 heating_temp_bathroom_day:
-  name: Temperatura w łazienkach w dzień
+  name: 'Temperatura w łazienkach w dzień'
   options:
     - '18'
     - '19'
@@ -104,7 +104,7 @@ heating_temp_bathroom_day:
   icon: mdi:temperature-celsius
 
 heating_temp_bathroom_night:
-  name: Temperatura w łazienkach w nocy
+  name: 'Temperatura w łazienkach w nocy'
   options:
     - '18'
     - '19'
@@ -116,7 +116,7 @@ heating_temp_bathroom_night:
   icon: mdi:temperature-celsius
 
 heating_temp_eco:
-  name: Temperatura dyżurna
+  name: 'Temperatura dyżurna'
   options:
     - '16'
     - '17'
@@ -126,7 +126,7 @@ heating_temp_eco:
   icon: mdi:temperature-celsius
 
 light_scenes_salon:
-  name: Tryb oświetlenia
+  name: 'Tryb oświetlenia'
   icon: mdi:palette
   options:
     - 'automatyczny'
@@ -139,7 +139,7 @@ light_scenes_salon:
     - 'dyskoteka'
 
 log_level:
-  name: HA poziom informacji loga
+  name: 'HA poziom informacji loga'
   icon: mdi:format-list-bulleted
   options:
     - 'critical'
@@ -152,7 +152,7 @@ log_level:
   initial: 'warning'
 
 salon_harmony:
-    name: Telewizor
+    name: 'Telewizor'
     options:
       - 'wyłączony'
       - 'telewizja'

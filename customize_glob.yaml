@@ -11,7 +11,7 @@
 
 #### MOTION SENSORS ####
 'binary_sensor.motion_*':
-  friendly_name: Ruch
+  friendly_name: 'Ruch'
   icon: mdi:run
   device_class: motion
   custom_ui_state_card: state-card-custom-ui
@@ -29,14 +29,14 @@
 #### ILLUMINATION SENSORS ####
 'sensor.illumination_*':
   icon: mdi:lightbulb-on-outline
-  friendly_name: Natężenie światła
+  friendly_name: 'Natężenie światła'
   custom_ui_state_card: state-card-custom-ui
   templates:
     state: ${Math.round(state)}
 
 #### CLIMATE ####
 'climate.thermostat*':
-  friendly_name: Grzejnik
+  friendly_name: 'Grzejnik'
   icon: mdi:radiator
   max_temp: 28
   min_temp: 4
@@ -51,7 +51,7 @@
 
 #### LIGHTS ####
 'light.lightstrip_*':
-  friendly_name: LEDy
+  friendly_name: 'LEDy'
   icon: mdi:led-variant-on
 
 #### BATTERY SENSORS ####

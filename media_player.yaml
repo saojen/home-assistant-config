@@ -1,12 +1,12 @@
 - platform: denonavr
   host: !secret denon_hostname
-  name: Denon
+  name: 'Denon'
   timeout: 3
 - platform: ps4
   host: !secret playstation_ip
 #  credentials_filename: '/home/homeassistant/.homeassistant/.ps4-wake.credentials.json'
   local_store: games
-  name: PlayStation
+  name: 'PlayStation'
 #- platform: dunehd
 #  host: !secret dune_hostname
 #  name: Dune
